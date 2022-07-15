@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+	<mapper namespace="AimagesDAO">
+		
+		<!-- 이미지스 작성 -->
+		<insert id="insertImage" parameterType="imagesDTO">
+			<selectKey resultType="int" keyProperty="image_no" order="BEFORE">
+				select max(image_no) from images
+			</selectKey>
+			insert into images values(#{image_no} + 1, #{image_path}, 
+				#{image_link}, #{image_priority}, #{image_visible})
+		</insert>
+		
+		<!-- 이미지스 리스트 불러오기  -->
+		<select id="imageList" resultType="imagesDTO">
+			select * from images order by image_priority asc
+		</select>
+		
+		<!-- 이미지스 상세 정보 가져오기 -->
+		<select id="imagesCont" parameterType="int" resultType="imagesDTO">
+			select * from images where image_no = #{no}
+		</select>
+		
+		<!-- 이미지스 삭제하기 -->
+		<delete id="imageDelete" parameterType="int">
+			delete from images where image_no = #{no}
+		</delete>
+		
+		<!-- 이미지스 삭제 후 넘버링 재정의 -->
+		<update id="imageDeleteSeq" parameterType="int">
+			<![CDATA[
+				update images set image_no = image_no - 1 where image_no > #{no}
+			]]>	
+		</update>
+		
+		<!-- 이미지스 수정 하기 -->
+		<update id="imageUpdate" parameterType="imagesDTO">
+			update images set image_path = #{image_path}, image_link = #{image_link}, image_priority = #{image_priority}, 
+				image_visible = #{image_visible} where image_no = #{image_no}
+		</update>
+	
+	</mapper>
+

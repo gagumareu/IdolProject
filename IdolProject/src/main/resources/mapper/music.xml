@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.idol.model.MusicDAO">
+  
+  <!-- 곡에 대한 정보 가져오기 -->
+  <select id="musicCont" resultType="musicDTO" parameterType="int">
+         select * from music where music_no = #{no}
+  </select>
+
+  	<select id="musicList_group" parameterType="String" resultType="musicDTO">
+		select * from music where group_name = #{group} order by music_release_date desc, music_no asc
+	</select>
+	
+	<select id="musicList_solo" parameterType="String" resultType="musicDTO">
+		select * from music where celeb_name = #{name} order by music_release_date desc, music_no asc
+	</select>
+	
+	<select id="musicSearch" parameterType="String" resultType="musicDTO">
+		select * from music where lower(music_name) like lower('%' || #{name} || '%') order by music_no asc
+	</select>
+	
+	
+	<select id="mainAllList" resultType="musicDTO">
+  	SELECT * FROM music m JOIN (
+        SELECT 
+            MIN(m.music_no) mno,
+            MAX(m.music_release_date) mdate,
+            m.group_name,
+            m.celeb_name
+        FROM music m 
+        GROUP BY 
+            m.group_name, m.celeb_name
+    ) gm ON m.music_no = gm.mno
+  </select>
+  
+  <select id="albumList_group" resultType="musicDTO" parameterType="String">
+  	select * from music where music_no in (select min(music_no) from music 
+  		where group_name=#{group_name} group by music_aname)
+  </select>
+  
+   <select id="albumList_solo" resultType="musicDTO" parameterType="String">
+  	select * from music where music_no in (select min(music_no) from music 
+  		where celeb_name=#{celeb_name} group by music_aname)
+  </select>
+	
+  </mapper>

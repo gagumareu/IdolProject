@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usedCommentDAO">
+	
+	<insert id="used_comment_add" parameterType="usedCommDTO">
+		<selectKey resultType="int" keyProperty="comment_no" order="BEFORE">
+			select nvl(max(comment_no), 0) from used_comment
+		</selectKey>
+		insert into used_comment values(#{comment_no} + 1, #{comment_writer},
+				#{comment_cont}, sysdate, '',
+				#{comment_no} + 1, 0, 0, #{used_nofk})
+	</insert>
+	
+	<select id="used_comment_list" parameterType="int" resultType="usedCommDTO">
+			select * from used_comment 
+			where used_nofk = #{no} 
+			order by comment_group, comment_step
+	</select>
+	
+	<update id="used_comment_delete" parameterType="int">
+		update used_comment set comment_cont = '삭제된 댓글입니다.', comment_update = sysdate
+			where comment_no = #{no}
+	</update>
+	
+	<select id="allComment" resultType="usedCommDTO">
+			select * from used_comment
+	</select>
+</mapper>

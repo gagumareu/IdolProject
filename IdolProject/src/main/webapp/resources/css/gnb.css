@@ -1,0 +1,232 @@
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+#g_nav{
+	position: relative;
+	z-index:10000;
+}
+
+.main_login_section{
+	display: flex;
+    justify-content: flex-end;
+    max-width: 980px;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    
+}
+
+.main_login_section li{
+	margin-left: 16px;
+	
+}
+
+.gnb {
+  height: 68px;
+  width: 100%;
+  color: #242424;
+  z-index: 999;
+  transition: all 0.6s;
+}
+
+.gnb-wrap {
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  width: 980px;
+  z-index:9999;
+}
+
+
+.logo a img{
+  display: inline-block;
+  width: 100px;
+  height: 68px;
+  background-color: none;
+}
+
+.gnb-tool ul li a{
+	width: 24px;
+	text-align: center;
+	margin-left: 16px;
+}
+
+.gnb-tool ul li a i{
+	font-size: 20px;
+	margin-left:
+}
+.gnb-menu{
+	margin-left: 16px;
+	flex: 1;
+}
+
+.gnb-menu ul,
+.gnb-tool ul {
+  display: flex;
+}
+
+.gnb-menu ul li,
+.gnb-tool ul li {
+  height: 68px;
+  line-height: 68px;
+}
+
+.gnb-menu ul li + li,
+.gnb-tool ul li + li {
+  margin-left: 16px;
+}
+
+.gnb-menu ul li a:hover{
+	font-weight: bold;
+	
+}
+.gnb a {
+  display: block;
+  height: 100%;
+  font-size: 18px;
+}
+
+
+#menu {
+  position: absolute;
+  top: -35px;
+  height: 0px;
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+  background-color: #D9E5FF;
+  z-index: 999;
+  transition: all 0.6s;
+  display: flex;
+  user-select: none;
+  overflow: hidden;
+  padding-top: 98px;
+}
+
+#menu .menu-wrap {
+  width: 980px;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+header.scroll .gnb{
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+header.active .gnb {
+  color: #242424;
+}
+
+header.active #menu {
+  height: 600px;
+  opacity: 1;
+  visibility: visible;
+}
+
+#menu #artist-box,
+#menu #product-box {
+	padding: 24px 0;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-100px);
+  transition: all 0.6s;
+}
+
+#menu #artist-box.active,
+#menu #product-box.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+#menu #artist-box .artist-album {
+  flex: 1;
+}
+
+#menu #artist-box .artist-album > div {
+  display: flex;
+  align-items: center;
+  margin-top: 60px;
+}
+
+#menu #artist-box .artist-album .artist-album-img {
+  width: 180px;
+  height: 180px;
+  background-color: rgb(210, 210, 210);
+}
+
+#menu #artist-box .artist-album .artist-album-img img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+
+#menu #artist-box .artist-album .artist-album-info {
+  padding-left: 24px;
+}
+
+#menu #artist-box .artist-album .artist-album-singer {
+  font-size: 18px;
+}
+
+#menu #artist-box .artist-album .artist-album-tit {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#menu #artist-box .artist-album .artist-album-detail-link {
+  display: block;
+  color: #505050;
+  margin-top: 20px;
+}
+
+#menu #artist-box .artist-menu {
+  flex: 1;
+}
+
+#menu #artist-box .artist-menu li,
+#menu #product-box .product-menu li {
+  height: 36px;
+  line-height: 36px;
+}
+
+#menu #artist-box .artist-menu li a,
+#menu #product-box .product-menu li a {
+  display: inline-block;
+}
+
+#menu #artist-box .artist-menu li a:hover,
+#menu #product-box .product-menu li a:hover {
+  font-weight: bold;
+}
+
+#menu #product-box {
+  display: flex;
+}
+
+#menu #product-box .product-wrap {
+  width: 180px;
+}
+
+#menu #product-box .product-wrap-vertical .product-wrap + .product-wrap {
+  margin-top: 24px;
+}
+
+#menu #product-box .product-wrap .tit {
+  font-size: 18px;
+  font-weight: 700;
+}
+

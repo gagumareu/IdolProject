@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="AcelebDAO">
+    	
+    	
+    	<!-- 관리자 정보 불러오기 -->
+    	<select id="admin_check" parameterType="String" resultType="adminDTO">
+    		select * from admin where admin_id = #{id}
+    	</select>
+
+		<select id="adminIdCheck" parameterType="memberDTO" resultType="String">
+			select * from admin where admin_id = #{member_id}
+		</select>
+		
+		<select id="adminPwdCheck" parameterType="memberDTO" resultType="String">
+			select admin_pwd from admin where admin_id = #{member_id}
+		</select>
+		
+    	<!-- 가수 등록 -->
+    	<insert id="insertCeleb" parameterType="celebDTO">
+    		<selectKey resultType="int" keyProperty="celeb_no" order="BEFORE"> 
+    			select max(celeb_no) from celeb
+    		</selectKey>
+    		insert into celeb values(#{celeb_no} + 1, #{celeb_name}, #{celeb_realname}, 
+    			#{celeb_agency}, #{celeb_dateofbirth}, #{celeb_debutdate}, 
+    				 #{celeb_group}, #{celeb_pimage})
+    	</insert>
+    	
+    	<!-- 가수 전체 리스트 불러오기 -->
+    	<select id="celebList" resultType="celebDTO">
+    		select * from celeb order by celeb_no
+    	</select>
+    	
+    	
+    	<!-- 가수 상세정보 가져오기 by name-->
+    	<select id="celebCont" parameterType="String" resultType="celebDTO">
+    		select * from celeb where celeb_name = #{celeb_name}
+    	</select>
+    	
+    	<!-- 가수 등록 후 그룹일 경우 그룹 이미지 넣기 -->
+    	<update id="updateGimage" parameterType="celebDTO">
+    		update celeb set celeb_group = #{celeb_group}, celeb_gimage = #{celeb_gimage} where celeb_no = #{celeb_no}
+    	</update>
+    	   	
+    	<!-- 가수 전체 리스트 불러오기 -->
+    	<select id="celectList" resultType="celebDTO">
+    		select * from celeb order by celeb_no
+    	</select>
+    	
+    	<!-- 가수 상세 정보 불러오기 by number -->
+    	<select id="contentByNO" parameterType="int" resultType="celebDTO">
+    		select * from celeb where celeb_no = #{no}
+    	</select>
+    	
+    	<!-- 가수 삭제 하기 -->
+    	<delete id="deleteCeleb" parameterType="int">
+    		delete from celeb where celeb_no = #{no}
+    	</delete>
+    	
+    	<!-- 삭제 후 상위 넘버링 재정의 -->
+    	<update id="updateSequ" parameterType="int">
+    		<![CDATA[
+    			update celeb set celeb_no = celeb_no - 1 where celeb_no > #{no} 
+    		]]>
+    	</update>
+		
+		<!-- 가수 정보 업데이트 -->
+		<update id="celebUpdate" parameterType="celebDTO">
+			update celeb set celeb_name = #{celeb_name}, celeb_realname = #{celeb_realname}, celeb_agency = #{celeb_agency}, celeb_group = #{celeb_group},
+				celeb_dateofbirth = #{celeb_dateofbirth}, celeb_debutdate = #{celeb_debutdate}, celeb_pimage = #{celeb_pimage} where celeb_no = #{celeb_no}
+		</update>
+		
+		<!-- 그룸 맴버 리스트 불러오기 -->
+		<select id="gmList" parameterType="String" resultType="celebDTO">
+			select * from celeb where celeb_group = #{gName}
+		</select>
+		
+		<!-- 그룹 정보 가져오기 -->
+		<select id="groupCont" parameterType="String" resultType="groupDTO">
+			select * from celeb_group where group_name = #{gName}
+		</select>
+		
+		<!--  그룸 이름만 가져오기 -->
+		<select id="getGroupList" resultType="groupDTO">
+			select group_name from celeb_group order by group_name
+		</select>
+		
+		<!-- 그룹 전체 리스트 가져오기 -->
+		<select id="getGroupAllList" resultType="groupDTO">
+			select * from celeb_group order by group_no
+		</select>
+		
+		
+		
+		
+    	
+    </mapper>

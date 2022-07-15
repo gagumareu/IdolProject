@@ -1,0 +1,162 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+html, body{
+	height:100%;
+	overflow: auto;
+}
+ul,
+li {
+  list-style: none;
+}
+
+
+footer{
+ padding-bottom: 16px;
+ border-top: 3px solid #E8E8E8;
+ background-color: #2A3A52;
+ color: #FFFFFF;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#foot_info{
+	font-size: 16px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	color: #6E6E6E;
+	
+}
+#foot_contents .company_info {
+	display: block;
+	font-size: 16px;
+	color: #6E6E6E;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+#foot_contents .company_info ul {
+	border-bottom: 1px #E8E8E8;
+	padding: 15px;
+	display: inline-block;
+	margin-left: 40px;
+}
+
+
+#bg_copy .copy_year {
+	color: #6E6E6E;
+	font-size: 12px;
+	text-align: center;
+	line-height: 17px;
+}
+
+.foot_menu ul li a{
+	display: flex;
+    justify-content: flex-end;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #6E6E6E;
+    font-weight: bold;
+}
+
+
+#popup {
+  display: none;
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 460px;
+  height: 580px;
+  background-color: white;
+  z-index: 10002;
+}
+
+
+#popup.show {
+  display: block;
+}
+
+#popup .popup-image-area {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  
+}
+
+#popup .popup-image-area img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background-color: black;
+}
+
+#popup .popup-image-area span{
+	position: absolute;
+	bottom:	10%;
+	left:5%;
+	background-color: black;
+	font-weight: 700;
+	color: white;
+	font-size: 40px;
+}
+#popup .popup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a3a52;
+}
+
+#popup .popup-row button {
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  padding: 10px 10px;
+  padding-left: 8px;
+}
+
+#popup .today-done-label {
+  cursor: pointer;
+  user-select: none;
+}
+
+#popup .today-done-text {
+  color: white;
+}
+
+#popup .popupSwiper {
+	height: inherit;
+}
+
+#popup .popupSwiper .swiper-slide-popup-wrap{
+	width: 100%;
+	height: 100%;
+}
+
+#popup .popupSwiper .swiper-slide-popup-wrap a{
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+#popup .popupSwiper .swiper-slide-popup-wrap a img {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}

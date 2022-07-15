@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- <![CDATA[]]> -->
+<mapper namespace="CartDAO">
+
+	<!-- 카트테이블 데이터추가 -->
+	<insert id="addCart" parameterType="CartDTO">
+		<selectKey resultType="int" keyProperty="cart_no" order="BEFORE">
+			<![CDATA[select nvl( max(cart_no) , 0 ) from cart]]>
+		</selectKey>
+		
+		<![CDATA[insert into cart 
+		values(#{cart_no}+1, #{cart_pno}, #{cart_userno}, #{cart_pname}, #{cart_pqty}, #{cart_price},
+		 #{cart_psize}, #{cart_pcolor}, #{cart_pimage}, #{cart_mileage})]]>
+	</insert>
+	
+	<!-- 카트테이블 데이터삭제 -->
+		<delete id="deleteCart" parameterType="int">
+			<![CDATA[delete from cart where cart_no = #{cno}]]>
+		</delete>
+	
+	<!-- 유저번호에 해당하는 카트리스트를 불러온다. -->
+	<select id="CartList" parameterType="int" resultType="CartDTO">
+		<![CDATA[select *from cart where cart_userno = #{userno} order by cart_no desc]]>
+	</select>
+	
+	<!-- 카트 번호에 해당하는 파라미터 값을 입력받아 카트 디테일 정보를 불러옴 -->
+	<select id="cartDetail" parameterType="int" resultType="CartDTO">
+		<![CDATA[select *from cart where cart_no = #{cart_no}]]>
+	</select>
+	
+	<update id="updateCart" parameterType="java.util.HashMap">
+		<![CDATA[update cart set cart_pqty = #{cart_pqty} where cart_no = #{cart_no}]]>
+	</update>
+	
+	<select id="cartCheck" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[select count(cart_no) from cart where cart_pno = #{cart_pno} and cart_userno = #{cart_userno}]]>
+	</select>
+	
+	
+</mapper>

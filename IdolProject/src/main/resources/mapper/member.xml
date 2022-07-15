@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="memberDAO">
+	<!-- **************회원가입 ****************** -->
+	<!-- 아이디 중복체크  -->
+	<select id="idcheck" resultType="int" parameterType="String" >
+		select count(*) from member where member_id = #{member_id}
+	</select>
+
+	<!-- 회원가입  -->
+   <insert id="join" parameterType="memberDTO">
+       <selectKey resultType="int" keyProperty="member_no"  order="BEFORE">
+         select case when max(member_no) is null then 1 else max(member_no)+1 end from member 
+      </selectKey>
+      
+   
+      insert into member values(#{member_no}, #{member_id}, #{member_nickname}, #{member_name}, #{member_pwd}, #{member_gender}
+               , #{member_email}, #{member_phone}, #{member_dateofbirth}, #{member_address},
+               sysdate, '', #{member_image}, #{member_favorite_celeb}, '', '')
+   
+   </insert>
+	<!-- **************로그인 ****************** -->
+	<!-- 로그인 시 아이디 확인  -->
+	<select id="loginIdCheck" parameterType="memberDTO" resultType="String">
+		select * from member where member_id = #{member_id}
+	</select>
+	
+	<!-- 로그인 시 비밀번호 확인 -->
+	<select id="loginPwdCheck" parameterType="memberDTO" resultType="String">
+		select member_pwd from member where member_id = #{member_id}
+	</select>
+	
+	
+
+	<!-- 아이디,비밀번호 찾기 -->
+	<select id="findid" parameterType="HashMap" resultType="String">
+		select member_id from member 
+			where member_name = #{member_name}
+			<if test="member_email != null"> <!-- 이메일로 찾기 한 경우 -->
+				and member_email = #{member_email}
+			</if>
+			
+			<if test="member_phone != null">	<!-- 휴대폰번호로 찾기한 경우 -->
+				and member_phone = #{member_phone}
+			</if>
+	</select>
+	<select id="findpwd" parameterType="HashMap" resultType="String">
+		select member_pwd from member 
+			where member_name = #{member_name} and member_id =#{member_id}
+			
+			<if test="member_email != null"> <!-- 이메일로 찾기 한 경우 -->
+				and member_email = #{member_email}
+			</if>
+			
+			<if test="member_phone != null">	<!-- 휴대폰번호로 찾기한 경우 -->
+				and member_phone = #{member_phone}
+			</if>
+	</select>
+	
+	<!-- **************마이페이지 ****************** -->
+	<!-- 회원정보 가져오는 sql -->
+	<select id="memInfo" parameterType="String" resultType="memberDTO">
+		select * from member where member_id = #{id}
+	</select>
+	
+	
+	<!-- 회원정보 수정 -->
+	<update id="memUpdate" parameterType="memberDTO">
+		update member set member_pwd = #{member_pwd}, member_nickname = #{member_nickname},
+						member_phone = #{member_phone}, member_email = #{member_email}, member_address = #{member_address},
+						member_favorite_celeb = #{member_favorite_celeb} , member_introduction = #{member_introduction}
+					where member_no = #{member_no}
+	</update>
+	
+	<update id="profileUpload" parameterType="memberDTO">
+		update member set member_image = #{member_image} where member_no = #{member_no}
+	</update>
+
+	<update id="coverUpload" parameterType="memberDTO">
+		update member set member_cover = #{member_cover} where member_no = #{member_no}
+	</update>
+	
+	
+	
+	<!-- 원석 -->
+	<select id="mCont" parameterType="int" resultType="memberDTO">
+	<![CDATA[select *from member where member_no = #{mno}]]>
+	</select>
+	
+	<select id="MemAllList" resultType="memberDTO">
+	<![CDATA[select *from MEMBER order by MEMBER_NO desc]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,559 @@
+@charset "UTF-8";
+	body{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+
+/* ***************login.jsp********************* */
+ 	
+ 	.lojo_container{
+ 	
+ 		margin-top: 130px;
+ 		margin-bottom: 200px;
+ 	}
+ 	
+ 	.lojo_title{
+ 		margin-bottom: 30px;
+ 	}
+ 	
+ 	.lojo_title span{
+ 		font-size: 3.5em;
+ 		font-weight: bold;
+ 		letter-spacing: 3px;
+ 	}
+ 	
+ 	.lojo_body {
+ 		background-color: white;
+   	    border: 1px solid #e0dfdf;
+        border-radius: 6px;
+        width: 40%;
+        padding: 40px 20px;
+ 	}
+ 	
+ 	.lojo_body .login_table {
+ 		width:90%;
+ 		font-size:1.3em;
+ 		margin-bottom:40px;
+ 	}
+ 	.lojo_body .login_table th{
+ 		width: 30%;
+ 	}
+ 	
+ 	.lojo_body .login_table td{
+ 		border-bottom:1px solid #e0dfdf;
+ 	}
+ 	
+ 	.lojo_body .login_table th, .lojo_body .login_table td{
+ 		padding: 20px ;
+ 		text-align: left;
+ 	} 
+ 	
+ 	.lojo_body .login_table input {
+ 		width: 100%;
+ 		border:none;
+ 		padding: 8px 5px;
+ 	}
+ 	
+ 	.login_btn {
+ 		margin-top:20px 0;
+ 		padding: 30px;
+ 	}
+ 	
+ 	.login_btn input{
+ 		width:90%;
+ 		font-size: 1.1em;
+        border-radius: 30px;
+        background-color: #2a3a52;
+        border: 1px solid #233044;
+        color: white;
+        font-weight: 500;
+        letter-spacing: 1.3px;
+        padding: 15px;
+ 	}
+ 	
+ 	.login_btn input:hover {
+	
+		background-color:#1e293b;
+	}
+	
+	.login_bottom{
+		margin-top:20px;
+		margin-bottom:40px;
+	}
+	
+	.login_bottom table{
+		font-size : 1.1em;
+		
+	}
+	
+	.login_bottom table td{
+		padding: 0 15px;
+	}
+
+/* **************join.jsp**************** */
+
+	.join_container{
+ 	
+ 		margin-top: 80px;
+ 		margin-bottom: 200px;
+ 	}
+ 	
+ 	.join_info1, .join_info2, .join_info3{
+ 		padding:0 20px;
+ 		margin-bottom:40px;
+ 	}
+ 	
+ 	
+ 	.join_title{
+ 		text-align: left;
+ 		font-size:1.1em;
+ 		border-bottom: 2px solid black;
+        padding: 10px 0;
+        margin-bottom:20px;
+ 	}
+ 	
+
+ 	 .join_table input {
+ 		border:none;
+ 		border-bottom: 1px solid #e0dfdf;
+ 		line-height: 2;
+ 	}
+ 	
+ 	.lojo_body .join_table{
+ 		width:100%;
+ 		font-size:0.9em;
+ 		margin-bottom:40px;
+ 	}
+ 	.join_table th{
+ 		width: 30%;
+ 	}
+
+ 	
+ 	.lojo_body .join_table th, .lojo_body .join_table td{
+ 		padding: 17px 10px ;
+ 		text-align: left;
+ 		line-height: 2;
+ 	} 
+
+ 	
+ 	
+ 	
+ /* 가수선택하기 - join.jsp & mypage_settings.jsp */
+ 	
+	.celeb_container{
+		display:flex;
+		flex-wrap: wrap;
+	}
+	.celeb_container .celeb_item input{
+		  display:none; 
+	}
+	
+	.celeb_container input:checked ~ label {
+		background-color:#485b78;
+		color:white;
+		border:3px solid #485b78;
+	}
+	
+	
+	.celeb_container label{
+		display: block;
+	    padding: 10px;
+	   
+	    position: absolute;
+	    text-align: center;
+	   /*  top: -0.5px;
+	    left: -0.3px; */
+	    text-align: center;
+	    width: 100%;
+	    height: 100%;
+	    border-radius: 50%;
+	    
+	     transition: all 0.2s ease;
+	
+	}
+	
+	.celeb_container .celeb_item{/* 가수선택 원형 박스 */
+		border : 1px solid #c2c0c0;
+		border-radius: 50%;
+		width:100px;
+		height:100px;
+		position:relative;
+		margin:10px;
+	}
+	
+	.celeb_container input:checked ~ .celeb_item {
+		background-color:#485b78;
+		color:white;
+		border:none;
+	}
+	
+	.celeb_container .celeb_item span{
+		display: inline-block;
+    	margin-top: 1.6em;
+    
+    }
+	
+	 /* 가수선택하기 - join.jsp & mypage_settings.jsp  end */
+	 
+	 
+	.agreement{
+		margin:10px 0;
+		text-align: left;
+	}
+	
+	.agreement label{
+		
+		display:inline-block;
+		margin:20px 0;
+	
+		font-size: 0.9em;
+	}
+	
+	.agreement .mandatory_word{
+		color:red;
+	}
+	
+	.agreement_cont{
+		
+		border: 1px solid gray;
+		padding: 26px 19px;
+		width:100%;
+		height: 230px;
+		overflow: auto;
+		
+		font-size: 13px;
+		color: #555;
+		line-height: 1.5;
+		
+		text-align: left;
+	}
+	
+	.join_btn{
+		display:flex;
+		padding:5px 10px;
+	}
+	
+	.join_btn input, .manage_bottom input{
+		width: 90%;
+  	    margin: 0 5px;
+        padding: 10px 5px;
+        border-radius: 40px;
+        border: 1px solid #233044;
+        font-size: 1.1em;
+        letter-spacing: 1.3px;
+        cursor: pointer;
+	}
+	
+	.join_submit, .manage_submit{
+	    background-color: #2a3a52;
+        border: 1px solid #233044;
+        color: white;
+	}
+	
+	.join_submit:hover , .manage_submit:hover{
+	
+		background-color:#1e293b;
+	}
+	
+	.join_cancel, .manage_cancel{
+		
+		background-color: white;
+        border: 1px solid #233044;
+		
+	}
+	.join_cancel:hover, .manage_cancel:hover{
+		background-color:#e0dfdf;
+	}
+
+    
+    
+    
+    /* ********** mypage aside************ */
+
+	.mypage_container{
+		display:flex;	
+		width:80%;
+		margin-left:10%;
+		border:1px solid #ececec;
+		
+	}
+	
+	.mypage_aside{
+		width:18%;
+		border: 1px solid lightgray;
+	}
+	
+	.profile_box{
+		
+		padding:20px;
+		background-color:#ececec;
+		
+	}
+	
+	.profile_image{
+		display:block;
+		overflow:hidden;
+		border-radius: 50%;
+		width:140px;
+		height:140px;
+		margin-top:7%;
+		margin-left: 10%;
+	}
+
+	.profile_image >img{
+		display:block;
+		width:auto;
+		height:100%;
+		width:100%;
+	}
+	
+	.info{
+		margin-top:5%;
+		margin-bottom:30px;
+		text-align: center;
+	}
+	
+	.info_cont{
+		padding:10px;
+		font-weight: bold;
+		color:black;
+		
+		
+	}
+	
+	.info_cont .nickname{
+		display:inline-block;
+		font-size:1.1em;
+		margin-bottom:5px;
+	}
+	
+	.mypage_menu{
+		margin-top:20px;
+		margin-left: 20px;
+	}
+	
+	.mypage_menu ul{
+		list-style: none;
+		line-height: 3;
+		
+	}
+	
+	.mypage_menu ul a{
+		text-decoration: none;
+		color:black;
+	}
+	
+	.mypage_menu ul a:hover {
+	
+		color:#485b78;
+	}
+	
+	
+	/* ************* 마이페이지 ******************  */
+	.mypage, .mypage_main{
+		width:90%;
+		margin-bottom:100px;
+		min-height: 100vh;
+	}
+	.mypage_main{
+		margin-left:30px;
+		margin-right: 20px; 
+		margin-top: 50px;
+	}
+	
+	.manage_top {
+		text-align: left;
+ 		font-size:1.8em;
+ 		font-weight:bold;
+        padding: 10px 0;
+        margin-bottom:20px;
+	}
+	
+	
+	/* ************************문의게시판************************* */
+	.qna_notice{
+		display:grid;
+		grid-template-columns: 1fr 1fr;
+		font-size:0.88em;
+	}
+	.notice_1 span{
+		color:#ff5722;
+		font-weight: bold;
+	}
+	
+	.notice_2{
+		margin-right:30px;
+	}
+	
+	.notice_2 input{
+		background-color: white;
+    border: 1px solid #233044;
+    padding: 5px 10px;
+    border-radius: 21px;
+    	cursor: pointer;
+	}
+	
+	.notice_2 input:hover{
+		background-color:#2a3a52;
+		color:white;
+	}
+	
+	.month_area ul{
+		display:flex;
+		list-style: none;
+		font-size: 0.88em;
+	}
+	
+	.quick_search{
+	
+		width:75px;
+		height:30px;
+		text-align:center;
+		padding:1px;
+		border:1px solid black;
+		
+	}
+	
+	
+	.quick_search input{
+		display:none;
+	}
+	.quick_search label{
+		width:100vw;
+		height:100vh;
+	}
+	.qna_month{
+	
+		margin-top:30px;
+	}
+	.qna_month input{
+		margin-left: 20px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    cursor: pointer;
+	}
+	
+	.qna_table{
+		margin:50px 0;
+		
+	}
+	
+	.qna_table table{
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	.firstRow{
+		background-color : #ececec;
+	}
+
+	.qna_table table tr{
+		height: 50px;
+		border-bottom: 1px solid #ececec;
+		
+	}
+	
+	.qna_table table td{
+		padding: 7px 10px;
+	}
+	
+	.qna_table table .qna_product{
+		width:20%;
+		text-align:center;
+		font-size:0.85em;
+	}
+	
+	.qna_table table .qna_td{
+		width: 10%;
+		text-align: center;
+		font-size: 0.9em;
+	}
+	.qnaboard_title:hover {
+		text-decoration: underline;
+	}
+	
+	.table_page{
+	
+		margin-top: 50px;
+	}
+	
+	
+	
+	.qnaCont_table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	.qnaCont_table tr{
+		height:50px;
+		border-bottom: 1px solid #ececec;
+		border-top: 1px solid #ececec;
+	}
+	
+	 .qnaCont_table th{
+		width: 15%;
+		padding: 8px;
+	}
+	
+	.qnaCont_table td{
+		padding: 8px;
+	}
+	
+	/* *********************피드****************************  */
+	.myfeed_container{
+		width:65%;
+		border: 1px solid #ececec;
+		padding:10px 10px 100px 10px;
+		background-color:#ececec;
+	}
+
+	.feed_title table{
+		width:100%;
+		text-align: center;
+		border-bottom: 1px solid #ececec;
+		font-weight: bold;
+	}
+	
+	.feed_title table td{
+		padding: 10px;
+	}
+	
+	.feed_title a{
+		text-decoration: none;
+		
+	}
+	
+	
+		.f_btn1{
+		background-color: #2a3a52;
+		color:white;
+	    border: 1px solid #2a3a52;
+	    padding: 3px 15px;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    margin: 30px 2px;
+	    font-size: 0.9em;
+	}
+	
+	.f_btn1:hover {
+		background-color:#17202d;
+	    border: 1px solid #2a3a52;
+	}
+	
+	
+	
+	.f_btn2{
+		background-color: white;
+	    border: 1px solid #2a3a52;
+	    padding: 3px 15px;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    margin: 30px 2px;
+	    font-size: 0.9em;
+	}
+	
+	.f_btn2:hover {
+		background-color: #ececec;
+		
+	}

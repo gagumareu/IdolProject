@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+    <mapper namespace="AgroupDAO">
+    	
+    	<!-- 그룹 등록  -->
+    	<insert id="groupInsert" parameterType="groupDTO">
+    		<selectKey resultType="int" keyProperty="group_no" order="BEFORE">
+    			select max(group_no) from celeb_group
+    		</selectKey>
+    		insert into celeb_group values(#{group_no} + 1, #{group_name}, #{group_image}, #{group_info})
+    	</insert>
+    	
+    	<!-- 그룹 전체 리스트 받기 -->
+    	<select id="groupList" resultType="groupDTO">
+    		select * from celeb_group order by group_no
+    	</select>
+    	
+    	<!-- 그룹 정보 가져오기 to 정보 수정 페이지  --> 
+    	<select id="groupContforUpdate" parameterType="int" resultType="groupDTO">
+    		select * from celeb_group where group_no = #{no}
+    	</select>
+    
+    	<!-- 그룹 정보 수정ok -->
+    	<update id="updateGroup" parameterType="groupDTO">
+    		update celeb_group set group_image = #{group_image}, group_info = #{group_info} where group_name = #{group_name}
+    	</update>
+    
+    	<!-- 그룹 삭제하기  -->
+    	<delete id="deleteGroup" parameterType="int">
+    		delete from celeb_group where group_no = #{no}
+    	</delete>
+    	
+    	<!-- 그룹 삭제후 넘버링 재정의 -->
+    	<update id="updateGroupSequen" parameterType="int">
+    		<![CDATA[
+    			update celeb_group set group_no = group_no - 1 where group_no > #{no}
+    		]]>
+    	</update>
+    	
+    	<!-- 솔로 리스트 가져오기 -->
+    	<select id="getSoloList" resultType="celebDTO">
+    		select * from celeb where celeb_group = 'solo'
+    	</select>
+    
+    
+    
+    </mapper>

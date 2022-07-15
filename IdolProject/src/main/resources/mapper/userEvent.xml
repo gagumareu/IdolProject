@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="eventDAO">
+
+	<select id="count" parameterType="HashMap" resultType="int">
+		select count(*) from notice where notice_type=#{notice_type}
+		<if test="category_type==1">and notice_enddate is null</if>
+		<if test="category_type==2">and notice_enddate is not null</if>
+	</select>
+	
+	<select id="eventList" parameterType="HashMap" resultType="eventDTO">
+		select * from (
+			select n.*, row_number() over(order by notice_no desc) rnum from notice n
+			where notice_type='CELEB' <!-- celeb 대문자로 수정 -->
+			<if test="category_type==1">and notice_enddate is null</if>
+			<if test="category_type==2">and notice_enddate is not null</if>
+		) 
+		<![CDATA[
+		where rnum >= #{pageDto.startNo} and rnum <= #{pageDto.endNo}
+		]]>
+	</select>
+	
+	<select id="concertList" parameterType="HashMap" resultType="eventDTO">
+		select * from (
+			select n.*, row_number() over(order by notice_no desc) rnum from notice n
+			where notice_type='CONCERT' <!-- concert 대문자로 수정 -->
+			<if test="category_type==1">and notice_enddate is null</if>
+			<if test="category_type==2">and notice_enddate is not null</if>
+		) 
+		<![CDATA[
+		where rnum >= #{pageDto.startNo} and rnum <= #{pageDto.endNo}
+		]]>
+	</select>
+	
+	<update id="read" parameterType="int">
+		update notice set notice_hit = notice_hit +1 where notice_no=#{no}
+	</update>
+	
+	<select id="event_cont" parameterType="int" resultType="eventDTO">
+		select * from notice where notice_no=#{no}
+	</select>
+	
+	<select id="all" resultType="eventDTO">
+		select * from notice where notice_enddate is null order by notice_date desc
+	</select>
+</mapper>

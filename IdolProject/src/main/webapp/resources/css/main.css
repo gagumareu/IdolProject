@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+.item-sec{
+	margin: 50px;
+}
+
+#itemsH1{
+	margin-top: 24px;
+	font-size: 40px;
+	font-weight: 700;
+	text-align: center;
+}
+
+#issueH1{
+	margin-top: 24px;
+	font-size: 40px;
+	font-weight: 700;
+}
+
+
+.swiper-slide-items-wrap{
+	position: relative;
+	display: block;
+	overflow: hidden;
+	text-decoration: none;
+	width: 320px;
+	height: 520px;
+}
+
+.card_overlay{
+	position: absolute;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index: 1;
+	background: #2a3a52;
+	opacity: 0.9;
+	transform: translateY(100%);
+	transition: 0.3s ease-in-out;
+}
+
+
+.swiper-slide-items-wrap:hover .card_overlay{
+	transform: translateY(-19%);
+}
+
+.card_header{
+	position:relative;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	padding: 8px;
+}
+
+
+
+.swiper-slide-items-wrap:hover .card_header{
+	transform: translateY(0);
+}
+
+.card_title{
+	font-size: 16px;
+	margin: 0 0 0.3em;
+	color: white;
+	font-weight: 500;
+}
+
+
+.card_price{
+	font-size: 16px;
+	color: white;
+	font-weight: 500;
+	display: flex;
+  	justify-content: space-between;
+  	padding-top: 6px;
+  	
+}
+
+swiper-slide-popup-wrap

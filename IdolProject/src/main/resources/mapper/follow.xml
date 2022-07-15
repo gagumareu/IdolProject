@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="followDAO">
+ 
+ 	<!-- id가 팔로우하고 있는 팔로잉 리스트 (회원한정) -->
+ 	<select id="followList" parameterType="String" resultType="followDTO">
+ 		select * from follow_follower where follower_name = #{id} and f_type='MEMBER'
+ 	</select>
+ 	
+ 	<!-- id를 팔로우하고 있는 팔로워 리스트 (회원한정) -->
+ 	<select id="followerList" parameterType="String" resultType="followDTO">
+ 		select * from follow_follower where follow_name = #{id} and f_type='MEMBER'
+ 	</select>
+ 	
+ 	<!-- 언팔(회원) -->
+ 	<delete id="deleteFollow" parameterType="HashMap">
+ 		delete from follow_follower where follow_name= #{id} and follower_name=#{login} and f_type='MEMBER'
+ 	</delete>
+ 	
+ 	<!-- 팔로우기능(회원) -->
+ 	<insert id="insertFollow" parameterType="HashMap">
+ 		 <selectKey resultType="int" keyProperty="f_no"  order="BEFORE">
+			select case when max(f_no) is null then 1 else max(f_no)+1 end from follow_follower
+		</selectKey>
+		
+		insert into follow_follower values(#{f_no}, 'MEMBER', #{id_no}, #{id_id}, #{login_no}, #{login_id})
+ 	</insert>
+ 	
+ 	<!-- 회원이 좋아요한 곡 리스트  -->
+ 	<select id="getMusicLike" parameterType="String" resultType="followDTO">
+ 		select * from follow_follower where follower_name= #{id} and f_type='MUSIC'
+ 	</select>
+ 	
+ 	<!-- 좋아요 취소 -->
+ 	<delete id="delLike" parameterType="HashMap">
+ 		delete from follow_follower where f_no = #{fno} and follower_name = #{login} and f_type =#{type}
+ 	</delete>
+ 	
+ 	<!-- 좋아요 갯수 count(곡) -->
+ 	<select id="countFollowMusic" parameterType="int" resultType="int">
+ 		select count(*) from follow_follower where follow_no= #{no} and f_type='MUSIC'
+ 	</select>
+ 	
+ 	<!-- 팔로우기능(곡) -->
+ 	<insert id="insertFollowMusic" parameterType="HashMap">
+ 		 <selectKey resultType="int" keyProperty="f_no"  order="BEFORE">
+			select case when max(f_no) is null then 1 else max(f_no)+1 end from follow_follower
+		</selectKey>
+		
+		insert into follow_follower values(#{f_no}, 'MUSIC', #{follow_no}, #{follow_name}, #{follower_no}, #{follower_name})
+ 	</insert>
+ 	
+ 	<!-- 곡 팔로워 리스트 -->
+ 	<select id="followerListMusic" parameterType="int" resultType="followDTO">
+ 		select * from follow_follower where follow_no = #{no} and f_type='MUSIC'
+ 	</select>
+ 	
+ 	<!-- 곡 언팔로우 -->
+ 	<delete id="unFollowMusic" parameterType="HashMap">
+ 		delete from follow_follower where follow_no = #{follow_no} and follower_no = #{follower_no} and f_type = 'MUSIC'
+ 	</delete>
+ 	
+ </mapper>

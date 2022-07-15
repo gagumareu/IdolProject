@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+   <mapper namespace="AmemberDAO"> 
+   
+   		<!-- 맴버 전체 리스트 불러오기 가입일 기준으로 내림차순  -->
+   		<select id="getMemberLsit" resultType="memberDTO">
+   			select * from member order by member_join_date desc
+   		</select>
+   		
+   		<!-- 문의 게시판 리스트 불러오기 -->
+	   	<select id="getInquirList" resultType="inquiryDTO">
+	   		select * from inquiry_board 
+	   			order by inquiry_group, inquiry_step asc, inquiry_update, inquiry_date asc   
+	   	</select>
+   
+   		<!-- 문의 게시판 카테고리 가져오기 -->
+   		<select id="getInquiryCategoryList" resultType="iCategoryDTO">
+   			select * from inquiry_category order by category_ino
+   		</select>
+   	
+   		<!-- 문의 내용 상세 정보 가져오기 by inquiry_no -->
+   		<select id="getInquiryCont" parameterType="int" resultType="inquiryDTO">
+   			select * from inquiry_board where inquiry_no = #{no}
+   		</select>
+   
+   		<select id="getOrderInfoByNo" parameterType="int" resultType="OrderDTO">
+   			select * from order_product where order_no = #{no}
+   		</select>
+   		
+   		<!-- 문의 답글 작성시 같은 그룹의 스탭들을 +1 시켜자  -->
+   		<update id="updateReplyStep" parameterType="inquiryDTO">
+   			update inquiry_board set inquiry_step = inquiry_step + 1 
+   				where inquiry_group = #{inquiry_group} and inquiry_step > #{inquiry_step}
+   		</update>
+   		
+   		<!-- 문의 답글 작성 -->
+   		<insert id="insertInquiryReply" parameterType="inquiryDTO">
+   			<selectKey resultType="int" keyProperty="inquiry_no" order="BEFORE">
+   				select max(inquiry_no) from inquiry_board
+   			</selectKey>
+   			insert into inquiry_board values(#{inquiry_no} + 1, #{inquiry_userid}, #{inquiry_title}, 
+   				#{inquiry_cont}, #{inquiry_image}, default, sysdate, '', #{product_no}, #{order_no}, 
+   					#{inquiry_status}, #{inquiry_group}, #{inquiry_step} + 1, #{inquiry_indent} + 1, #{category_inofk} )
+   		</insert>
+   		
+   		<!-- 문의 글 답변 완료시 status 1로 바꾸기 -->
+   		<update id="updateReplyStatus" parameterType="inquiryDTO">
+   			update inquiry_board set inquiry_status = #{inquiry_status} where inquiry_no = #{inquiry_no}
+   		</update>
+   
+   		<!-- 문의 글 같은 그룹 리스트 불러오기 by inquiry_group -->
+   		<select id="getInquiryReplyList" parameterType="int" resultType="inquiryDTO">
+   			select * from inquiry_board where inquiry_group = #{no} order by inquiry_step asc
+   		</select>
+   		
+   		<!-- 답글 상세 내역 가져오기 -->
+   		<select id="getReplyCont" parameterType="int" resultType="inquiryDTO">
+   			select * from inquiry_board where inquiry_no = #{no}
+   		</select>
+   		
+   		<!-- 답급 수정 완료 by inquiry_no -->
+   		<update id="updateReplyOk" parameterType="inquiryDTO">
+   			update inquiry_board set inquiry_cont = #{inquiry_cont} where inquiry_no = #{inquiry_no}
+   		</update>
+   		
+   		<!-- 삭제 후 문의 테이블 넘버링 재정의 -->
+   		<update id="updateInquirySequen" parameterType="int">
+   			<![CDATA[
+   				update inquiry_board set inquiry_no = inquiry_no - 1 where inquiry_no > #{no}
+   			]]>
+   		</update>
+   		
+   		<!-- 답글 삭제 하기 by inquiry_no -->
+   		<delete id="deleteInquiry" parameterType="int">
+   			delete from inquiry_board where inquiry_no = #{no}
+   		</delete>
+   		
+   <!-- ****************** 맴버 상세 페이지에 필요한 sql 문 ********************** -->	
+   		
+   		<!--  맴버 상세 정보 불러오기 by member_no-->
+   		<select id="getMemberCont" parameterType="int" resultType="memberDTO">
+   			select * from member where member_no = #{no}
+   		</select>
+   		
+   		<!-- 맴버 상품 주문 리스트 불러오기 by order_userid-->
+   		<select id="getMemberOrderList" parameterType="String" resultType="OrderDTO">
+   			select * from order_product where order_userid = #{id}
+   		</select>
+   		
+   		
+   		
+   		<!-- 맴버 중고 거래 리스트 불러오기 by used_userid -->
+   		<select id="getMemberUsedList" parameterType="String" resultType="usedDTO">
+   			select * from used_board where used_userid = #{id}
+   		</select>
+   	<!--여기 1차-->
+   		<!--맴버 중고 거래 게시글 불러오기 by comment_writer -->
+   		<select id="getMemberUsedCommList" parameterType="String" resultType="usedCommDTO">
+   			select * from used_comment where comment_writer = #{id}
+   		</select>
+   		
+   		<!-- 중고거래 카테고리-->
+   		<select id="getUsedCategoryList" resultType="uCategoryDTO">
+   			select * from used_category order by category_uno
+   		</select>
+   		
+   		
+   		
+   		<!--맴버 커뮤니티 게시글 리스트 불러오기-->
+   		<select id="getMemberCommList" parameterType="String" resultType="communityDTO">
+   		 	select * from community_board where community_userid = #{id}	
+   		</select>
+   		
+   		 <!--커뮤니티 답글 불러오기-->
+   		<select id="getMemberCommCommList" parameterType="String" resultType="CommCommDTO">
+   			select * from community_comment where comment_writer = #{id} order by comment_date desc, comment_update desc, comment_group asc	
+   		</select>
+   		
+   			<!--커뮤니티 카테고리 가져오기 -->	
+		<select id="getCommunityCommList" resultType="cCategoryDTO">
+		 	select * from community_category order by category_cno
+		</select>
+   		
+   		
+   		
+   	<!-- 2차 -->	
+   		<!--맴버 문의 게시판 리스트 가져오기-->	
+   		<select id="getMemberInquiryLsit" parameterType="String" resultType="inquiryDTO">
+   			select * from inquiry_board where inquiry_userid = #{id}
+   		</select>
+
+	 	
+		<select id="getCelebListFromMember" resultType="celebDTO"> 
+			select * from celeb 
+		</select>
+	
+		<select id="getGroupListFromMember" resultType="groupDTO"> 
+			select * from celeb_group 
+		</select>
+		
+		<!-- 카테고리별 문의 게시판 리스트 가져오기 -->
+		<select id="inquiryListByCate" parameterType="int" resultType="inquiryDTO">
+			select * from inquiry_board where CATEGORY_INOFK = #{no} and inquiry_status = '0' order by inquiry_date desc
+		</select>
+		
+		<!-- 완료된 문의 게시판 가져오기 -->
+		<select id="inquiryOkList" resultType="inquiryDTO">
+			select * from inquiry_board where INQUIRY_STATUS = '1' and INQUIRY_STEP = '0' order by inquiry_date desc 
+		</select>
+		
+		<!-- 정지 회원 리스트 불러오기 -->
+		<select id="killed" resultType="memberDTO">
+			select * from member where MEMBER_JOIN_DATE = '00/01/01' and MEMBER_DATEOFBIRTH = '00/01/01'		
+		</select>
+		
+		<!-- 맴버 검색 리스트 가져오기 -->
+		<select id="searchMemberList" parameterType="String" resultType="memberDTO">
+			select * from member where lower(member_id) like '%' || #{id} || '%'
+		</select>
+   		
+   		<!-- 맴버 생일 및 가입일 00/01/01로 바꾸기 -->
+   		
+   		
+   		
+   		
+   </mapper> 
+    

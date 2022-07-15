@@ -1,0 +1,499 @@
+@charset "UTF-8";
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*font-family: 'Noto Sans KR', sans-serif;*/
+
+#wrap{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#container{
+    width: 1200px;
+}
+
+#content{
+    width: 100%;
+}
+
+/* 장바구니페이지 제목 */
+.order-title{
+    margin: 60px auto ;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #2d3043;
+}
+
+
+/*주문완료 정보*/
+.orderInfo{
+    width: 100%;
+    margin: 70px auto 0;
+    padding: 55px 0;
+    color: #919198;
+    border: 1px solid #d8d9df;
+    border-top: 2px solid #3d435f;
+    border-bottom: 8px double #3d435f;
+    text-align: center;
+    background-color: rgba(242, 242, 242);
+}
+
+.orderInfo i{
+    opacity: 0.5;
+}
+
+.orderInfo p{
+    margin: 23px 0 0;
+    font-size: 16px;
+    color: #919198;
+    font-weight: 500;
+}
+
+.orderInfo strong{
+    display: block;
+    color: #2d2f43;
+    font-size: 28px;
+    line-height: 50px;
+}
+
+.orderInfo ul{
+    width: 250px;
+    text-align: center;
+    margin: 30px auto;
+    padding-left: 0px;
+}
+
+.orderInfo li{
+    height: 55px;
+    line-height: 55px;
+    color: #919198;
+    font-size: 14px;
+    border-bottom: 1px solid #d8d9df;
+    text-align: left;
+    list-style: none;
+}
+
+.orderInfo span{
+    color: #2d2f43;
+    text-align: right;
+    float: right;
+    font-weight: 400;
+    line-height: 55px;
+    font-size: 14px;
+}
+
+
+/* 주문내역 페이지 제목 */
+.list-title{
+    margin-top: 50px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #2d2f43;
+    border-bottom: 2px solid #3d435f;
+}
+
+/* 주문내역 테이블 스타일 적용 */
+.order-table table tr th{
+    padding: 0;
+    border: 0;
+    background-color: #fff;
+    color: #98989f;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    font-weight: 350;
+}
+.order-table table tr th:nth-of-type(1){
+    width: 750px;
+}
+.order-table table tr th:nth-of-type(2){
+    width: 150px;
+}
+
+.order-table table tr th:nth-of-type(3){
+    width: 150px;
+}
+
+.order-table table tr th:nth-of-type(4){
+    width: 150px;
+}
+.order-table table tr th:nth-of-type(5){
+    width: 150px;
+}
+
+.order-table table tr th{
+    border-bottom: 1px solid lightgray;
+}
+
+.order-table table tr td{
+    padding: 25px 10px;
+    border-bottom: 1px solid lightgray;
+    text-align: center;
+    font-size: 14px;
+    color: #2d2f43;
+    line-height: 24px;
+    font-weight: 300;
+}
+
+.order-table table tr a{
+    text-decoration: none;
+    color: #2d2f43;
+}
+
+.order-table table tr:nth-of-type(1){
+    border-top: 1px solid lightgray;
+}
+
+.order-image{
+    width: 120px;
+}
+
+.order-image img{
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.order-prdInfo .order-prdGroup{
+    text-align: left;
+    font-style: normal;
+    display: block;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    color: #a7a9b5;
+    padding-bottom: 3px;
+    font-weight: 300;
+}
+
+.order-prdInfo .order-prdName{
+    text-align: left;
+    font-weight: 400;
+}
+
+.order-amount{
+    color: #2d2f43;
+    font-weight: 500;
+}
+
+
+/*order 테이블 하단 상품 합계,배송비, 총합계 등*/
+#order-tableRight td{
+    position: relative;
+    width: 100%;
+    font-weight: 400;
+    text-align: right;
+}
+
+#totalAmount{
+    color: red;
+    font-size: 24px;
+    position: relative;
+    top: 3px;
+}
+
+.plus_sign{
+    display: inline-block;
+    text-align: center;
+    line-height: 23px;
+    width: 21px;
+    height: 21px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    font-size: 14px;
+    color: #3d435f;
+    font-family: Dotum;
+    margin: 0 23px;
+}
+
+.plus_sign_line{
+    border-right: 1px solid #b1b4bf;
+    height: 21px;
+    margin: 0 23px;
+}
+
+#deliberyFee_sum{
+    display: inline-block;
+    color: #e5433e;
+    font-size: 24px;
+    font-weight: 500;
+    height: 30px;
+    vertical-align: middle;
+}
+
+/*결재정보 및 적립내역*/
+#paymentInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 50px 0px;
+}
+
+#paymentInfo #leftInfo{
+    width: 570px;
+}
+
+#paymentInfo #rightInfo{
+    width: 570px;
+}
+
+#paymentInfo h3{
+    margin: 0;
+    display: inline-block;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#paymentInfo .paymentInfo-title{
+    border-bottom: 2px solid black;
+}
+
+#paymentInfo table{
+    width: 100%;
+}
+
+#paymentInfo table tr{
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+#paymentInfo table th{
+    text-align: left;
+    padding: 0;
+    border: 0;
+    background-color: #fff;
+    color: #2d2f43;
+    height: 55px;
+    line-height: 55px;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid #d8d9df;
+}
+
+#paymentInfo table td{
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+    color: #2d2f43;
+    height: 55px;
+    line-height: 55px;
+    font-weight: 300;
+    border-bottom: 1px solid #d8d9df;
+}
+
+#leftInfo table tr th{
+    width: 100px;
+}
+
+#rightInfo table tr th{
+    width: 120px;
+}
+
+#paymentInfo{
+    margin: 50px 0px;
+    width: 100%;
+}
+
+
+/*배송지 정보*/
+.deliberyInfo-title{
+    border-bottom: 2px solid black;
+}
+
+.deliberyInfo-title h3{
+    margin: 0;
+    display: inline-block;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#deliberyInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#deliberyInfo #deliberyInfo-left{
+    width: 570px;
+}
+
+#deliberyInfo #deliberyInfo-right{
+    width: 570px;
+}
+
+#deliberyInfo table{
+    width: 100%;
+}
+
+#deliberyInfo th{
+    width: 100px;
+}
+
+#deliberyInfo table tr{
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+#deliberyInfo table th{
+    text-align: left;
+    padding: 0;
+    border: 0;
+    background-color: #fff;
+    color: #2d2f43;
+    height: 55px;
+    line-height: 55px;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid #d8d9df;
+}
+
+#deliberyInfo table td{
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+    color: #2d2f43;
+    height: 55px;
+    line-height: 55px;
+    font-weight: 300;
+    border-bottom: 1px solid #d8d9df;
+}
+
+/*하단 버튼*/
+#bottomBtn{
+    text-align: center;
+    margin: 55px 0px;
+}
+
+#bottomBtn .continueBtn{
+    width: 254px;
+    height: 55px;
+    background-color: #fff;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 55px;
+    border-radius: 50px;
+    border: 1px solid #b4b5c1;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#bottomBtn .continueBtn:hover{
+    background-color: lightgray;
+}
+
+#bottomBtn .donfirmBtn{
+    width: 254px;
+    height: 55px;
+    background-color: #3d435f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 55px;
+    border-radius: 50px;
+    border: 1px solid #3d435f;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#bottomBtn .donfirmBtn:hover{
+    background-color: #2d2f43;;
+}
+
+/*하단 배송및 주문정보*/
+#bottomInfo{
+    border: 1px solid #d8d9df;
+    padding: 0;
+    margin: 100px auto 0;
+    line-height: 30px;
+}
+#bottomInfo ol{
+    list-style: none;
+}
+#bottomInfo li{
+    font-size: 14px;
+    color: #82838b;
+    font-weight: 400;
+    padding: 0 0 0 22px;
+    line-height: 24px;
+}
+
+
+
+/* backToTopBottom */
+#back-to-top {
+    position: fixed;
+    bottom: 15em;
+    right: 3em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom {
+    position: fixed;
+    bottom: 10em;
+    right: 3em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-bottom.visible {
+    opacity: 1;
+}
+
+#back-to-top:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-top.visible {
+    opacity: 1;
+}
+
+

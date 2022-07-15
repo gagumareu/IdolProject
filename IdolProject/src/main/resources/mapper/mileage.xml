@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--  -->
+  
+  <mapper namespace="mileDAO">
+  
+ <!-- 멤버번호를 파라메터 값으로 받아 현제 마일리지 정보를 조회 -->
+ <select id="getDetail" parameterType="int" resultType="mileDTO">
+ 	<!-- <![CDATA[SELECT * from MILEAGE_MASTER where MILEAGE_DATE = (select max(MILEAGE_DATE) from MILEAGE_MASTER)and MILEAGE_MEMNO = #{mno}]]> -->
+ 	<![CDATA[select *from MILEAGE_MASTER where MILEAGE_MEMNO = #{mno} and MILEAGE_MNO = (select max(MILEAGE_MNO) from MILEAGE_MASTER where MILEAGE_MEMNO = #{mno})]]>
+ </select>
+ 
+ 
+ 
+ 
+ <!-- 멤버번호를 파라메터 값으로 받아 남아있는 마일리지를 조회  -->
+ <select id="reamining" parameterType="int" resultType="int">
+ 	<!-- <![CDATA[SELECT mileage_remaining from MILEAGE_MASTER where MILEAGE_DATE = (select max(MILEAGE_DATE) from MILEAGE_MASTER)and MILEAGE_MEMNO = #{mno}]]> -->
+ 	<![CDATA[select mileage_remaining from MILEAGE_MASTER where MILEAGE_MNO = (SELECT max(MILEAGE_MNO) from MILEAGE_MASTER where MILEAGE_MEMNO = #{mno})]]>
+ </select>
+ 
+ <!-- 추가될 마일리지 정보를 dto에 담아 마일리지 테이블에 정보를 추가한다.  -->
+ <insert id="inserMInfo" parameterType="mileDTO">
+ 	<selectKey resultType="int" keyProperty="mileage_mno" order="BEFORE">
+ 		<![CDATA[select nvl(max(MILEAGE_MNO),0) from MILEAGE_MASTER ]]>
+ 	</selectKey>
+ 	
+ 	<![CDATA[insert into MILEAGE_MASTER values(#{mileage_mno}+1, #{mileage_memno}, #{mileage_remaining},
+ 			 #{mileage_earn}, #{mileage_deduction}, #{mileage_accumulated}, #{mileage_type},sysdate )]]>
+ 
+ </insert>
+
+ <!-- 멤버번호에 해당하는 마일리지 데이터 리스트 뽑기 -->
+ <select id="mileageList" resultType="mileDTO" parameterType="int">
+ 	select * from mileage_master where mileage_memno = #{member_no} order by mileage_mno desc 
+ </select>
+ 
+ </mapper>

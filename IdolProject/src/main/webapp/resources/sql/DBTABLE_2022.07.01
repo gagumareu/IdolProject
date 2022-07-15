@@ -1,0 +1,317 @@
+2022-07-01일(최신)
+
+--회원 테이블(수정:DATEOFBIRTH 컬럼 TYPE DATE로 수정,MEMBER_PWD,MEMBER_PHONE 컬럼추가, MEMBER_IMAGE컬럼 타입 글자수 1000으로 변경  )
+--회원 테이블(수정: 회원 닉네임 컬럼 추가)
+CREATE TABLE MEMBER
+(
+    MEMBER_NO                NUMBER           PRIMARY KEY, -- 회원 번호
+    MEMBER_ID                VARCHAR2(20)     NOT NULL,    -- 회원 아이디
+    MEMBER_NICKNAME           VARCHAR2(50)     ,            -- 회원 닉네임
+    MEMBER_NAME              VARCHAR2(20)     NOT NULL,    -- 회원 이름
+    MEMBER_PWD               VARCHAR2(30)     NOT NULL,    -- 회원 비밀번호
+    MEMBER_GENDER            VARCHAR2(1)      NOT NULL CHECK(MEMBER_GENDER in('M','F')),  --회원 성별
+    MEMBER_EMAIL             VARCHAR2(50)     NOT NULL,    -- 회원 이메일
+    MEMBER_PHONE           VARCHAR2(50)     ,            -- 회원 전화번호
+    MEMBER_DATEOFBIRTH       DATE       ,                  -- 회원 생년월일
+    MEMBER_ADDRESS           VARCHAR2(500)     ,            -- 회원 주소
+    MEMBER_JOIN_DATE         DATE             NOT NULL,    -- 회원가입일
+    MEMBER_UPDATE            DATE             ,            -- 회원수정일
+    MEMBER_IMAGE             VARCHAR2(1000)    ,            -- 회원이미지
+    MEMBER_FAVORITE_CELEB    VARCHAR2(100)    ,            -- 좋아하는 셀럽 (3명)
+    MEMBER_INTRODUCTION      VARCHAR2(200),                 -- 회원소개
+    MEMBER_COVER     VARCHAR2(1000)      --회원 커버이미지   
+);
+
+--가수테이블(수정:가수 그룹이미지 컬럼 삭제)
+CREATE TABLE CELEB
+(
+    CELEB_NO             NUMBER           PRIMARY KEY, -- 가수번호
+    CELEB_NAME           VARCHAR2(20)     NOT NULL,    -- 가수명
+    CELEB_REALNAME       VARCHAR2(50)     NOT NULL,    -- 가수본명
+    CELEB_AGENCY         VARCHAR2(50)     NOT NULL,    -- 소속사
+    CELEB_DATEOFBIRTH    DATE             NOT NULL,    -- 생일
+    CELEB_DEBUTDATE      DATE             NOT NULL,    -- 데뷔일
+    CELEB_GROUP          VARCHAR2(30)	  ,            -- 그룹
+    CELEB_PIMAGE         VARCHAR2(1000)   ,            -- 가수(Personal)이미지
+);
+
+
+
+-- 가수 그룹테이블
+CREATE TABLE GROUP
+(
+    GROUP_NO       NUMBER            PRIMARY KEY,      -- 그룹번호 
+    GROUP_NAME     VARCHAR2(100),                      -- 그룹명
+    GROUP_IMAGE    VARCHAR2(1000),                     -- 그룹 이미지
+    GROUP_INFO     VARCHAR2(2000)                      -- 그룹 정보
+);
+
+
+--뮤직테이블(수정: 그룹명, 셀럽명 컬럼 추가,가사 작곡가 앨범 노래명 길이수정)
+CREATE TABLE MUSIC
+(
+    MUSIC_NO            NUMBER           PRIMARY KEY,   -- 뮤직번호
+    GROUP_NAME      VARCHAR2(20)      NOT NULL,    -- 그룹명
+    CELEB_NAME         VARCHAR2(20),                      -- 셀럽명
+    MUSIC_ANAME      VARCHAR2(200)     NOT NULL,     -- 앨범명
+    MUSIC_NAME      VARCHAR2(200)     NOT NULL,         -- 곡명
+    MUSIC_LYRICS          VARCHAR2(4000)    NOT NULL,   -- 가사
+    MUSIC_COMPOSER        VARCHAR2(200)     NOT NULL,   -- 작곡가
+    MUSIC_LYRICST         VARCHAR2(200)     NOT NULL,   -- 작사가
+    MUSIC_COVERIMAGE      VARCHAR2(1000)    NOT NULL,   -- 앨범커버 이미지
+    MUSIC_MOVIE_LINK      VARCHAR2(1000)    NOT NULL,   -- 뮤비링크
+    MUSIC_RELEASE_DATE    DATE             NOT NULL    -- 발매일
+);
+
+-- 관리자 테이블
+CREATE TABLE ADMIN
+(
+    ADMIN_ID       VARCHAR2(30)    PRIMARY KEY,  -- 관리자 아이디
+    ADMIN_PWD      VARCHAR2(30)    NOT NULL,     -- 관리자 비밀번호
+    ADMIN_NAME     VARCHAR2(30)    NOT NULL,     -- 관리자 이름
+    ADMIN_EMAIL    VARCHAR2(50)    NOT NULL,     -- 관리자 이메일
+    ADMIN_DATE     DATE            NOT NULL      -- 관리자 등록일
+);
+
+-- 팝업테이블
+CREATE TABLE POP_UP
+(
+    PUP_NO        NUMBER           PRIMARY KEY, -- 팝업번호
+    PUP_TITLE     VARCHAR2(30)     NOT NULL,    -- 팝업 제목
+    PUP_IMAGE     VARCHAR2(1000)    NOT NULL,    -- 팝업 이미지
+    PUP_STDATE    DATE             NOT NULL,    -- 시작일자
+    PUP_EXDATE    DATE             NOT NULL     -- 만료일자
+);
+
+-- 장바구니 테이블 (수정: 제품이름 길이변경)
+CREATE TABLE CART
+(
+    CART_NO         NUMBER           PRIMARY KEY, -- 카트번호
+    CART_PNO        NUMBER           NOT NULL,    -- 제품번호
+    CART_USERNO     NUMBER           NOT NULL,    -- 회원번호
+    CART_PNAME      VARCHAR2(100)     NOT NULL,    -- 제품명
+    CART_PQTY       NUMBER           NOT NULL,    -- 제품수량
+    CART_PRICE      NUMBER           NOT NULL,    -- 제품가격
+    CART_PSIZE      VARCHAR2(30)     ,            -- 제품사이즈
+    CART_PCOLOR     VARCHAR2(30)     ,            -- 제품색상
+    CART_PIMAGE     VARCHAR2(1000)    ,            -- 이미지
+    CART_MILEAGE    NUMBER                        -- 마일리지
+);
+
+-- 결재테이블(수정:제품의 개당가격컬럼 추가)
+CREATE TABLE ORDER_PRODUCT
+(
+    ORDER_NO          NUMBER           PRIMARY KEY, -- 주문번호
+    ORDER_USERID      VARCHAR2(30)     NOT NULL, -- 주문자 아이디
+    ORDER_PIMAGE      VARCHAR2(1000)    ,        -- 제품 이미지
+    ORDER_PNAME       VARCHAR2(100)     NOT NULL, -- 제품이름
+    ORDER_QTY         NUMBER           NOT NULL, -- 결제수량
+    ORDER_TOTAL       NUMBER           NOT NULL, -- 총금액
+    ORDER_TCOST       NUMBER           ,         -- 운송비
+    ORDER_MILEAGE     NUMBER           ,         -- 마일리지
+    ORDER_TYPE        NUMBER           NOT NULL CHECK(ORDER_TYPE in(0,1)),  -- 결재타입(계좌이체 0, 카드결제1)
+    ORDER_GROUP       NUMBER           NOT NULL, -- 주문그룹
+    ORDER_DATE        DATE             NOT NULL, -- 주문날짜
+    ORDER_RECEIVERNAME       VARCHAR2(30)         NOT NULL, -- 수취인
+    ORDER_RECEIVERADDRESS    VARCHAR2(500)         NOT NULL, -- 수취인 주소
+    ORDER_RECEIVERPHONE      VARCHAR2(30),                   -- 수취인 연락처
+    ORDER_PPRICE     NUMBER  NOT NULL           -- 제품의 개당가격(ProductPrice)
+);
+
+
+--팔로우/ 팔로워 테이블(수정: 팔로우 팔로워 번호컬럼 추가)
+CREATE TABLE FOLLOW_FOLLOWER
+(
+    F_NO       NUMBER          PRIMARY KEY, -- 번호
+    F_TYPE     VARCHAR2(30)    NOT NULL,    -- 구분(GROUP/MEMBER/MUSIC)
+    FOLLOW_NO NUMBER   NOT NULL,       -- 팔로우한 주체의 번호 
+    FOLLOW_NAME     VARCHAR2(50)    NOT NULL,    -- 팔로우한 주체의 ID(이름)
+    FOLLOWER_NO NUMBER NOT NULL,                  -- 팔로워 당하는 주체의 번호
+    FOLLOWER_NAME    VARCHAR2(30)    NOT NULL    -- 팔로워 당하는 주체의 ID(이름)
+);
+
+
+-- 커뮤니티 카테고리 테이블(수정: 카테고리 아이콘에 사용될 폰트어썸 클래스네임 컬럼 추가)
+CREATE TABLE COMMUNITY_CATEGORY
+(
+    CATEGORY_CNO      NUMBER          PRIMARY KEY, -- 카테고리 번호 
+    CATEGORY_CNAME    VARCHAR2(30)    NOT NULL,     -- 카테고리 이름
+    CATEGORY_ICNAME   VARCHAR2(100)                -- 카테고리 아이콘 클래스네임
+);
+
+-- 커뮤니티게시판 테이블(수정: 게시판제목, 게시판 내용 길이변경)
+CREATE TABLE COMMUNITY_BOARD
+(
+    COMMUNITY_NO           NUMBER           PRIMARY KEY,        -- 게시판 글번호
+    COMMUNITY_USERID       VARCHAR2(20)     NOT NULL,           -- 회원아이디
+    COMMUNITY_TITLE        VARCHAR2(4000)     NOT NULL,           -- 게시판 제목
+    COMMUNITY_CONT         VARCHAR2(4000)    ,                   -- 게시판 내용
+    COMMUNITY_HIT          NUMBER           DEFAULT 0 NOT NULL, -- 게시판 조회수
+    COMMUNITY_DATE         DATE             NOT NULL,           -- 게시판 작성일
+    COMMUNITY_UPDATE       DATE             ,                   -- 게시판 수정일
+    COMMUNITY_RECOMMEND    NUMBER           DEFAULT 0 NOT NULL,         -- 게시판 추천수
+    CATEGORY_CNOFK         NUMBER           ,            -- 카테고리번호
+    COMMUNITY_IMAGE         VARCHAR2(1000)               -- 커뮤니티 게시글 이미지
+);
+
+-- 커뮤티니 댓글테이블
+CREATE TABLE COMMUNITY_COMMENT
+(
+    COMMENT_NO        NUMBER           PRIMARY KEY, -- 댓글번호
+    COMMENT_WRITER    VARCHAR2(20)     NOT NULL,    -- 댓글 작성자
+    COMMENT_CONT      VARCHAR2(1000)    NOT NULL,    -- 댓글내용
+    COMMENT_DATE      DATE             NOT NULL,    -- 작성일자
+    COMMENT_UPDATE    DATE             ,            -- 수정일자
+    COMMENT_GROUP     NUMBER           NOT NULL,    -- 댓글그룹
+    COMMENT_STEP      NUMBER           NOT NULL,    -- 댓글에 연결된 순서
+    COMMENT_INDENT    NUMBER           NOT NULL,    -- 대댓글 
+    COMMUNITY_NOFK    NUMBER           NOT NULL,    -- 게시판 글번호
+    CATEGORY_CNOFK    NUMBER           NOT NULL     -- 카테고리번호
+);
+
+-- 커뮤니티 추천
+CREATE TABLE COMMUNITY_RECOMMEND
+(
+    RECOMMEND_NO    NUMBER     PRIMARY KEY, -- 추천번호
+    MEMBER_NO       NUMBER     NOT NULL,    -- 추천한 회원번호
+    COMMUNITY_NO    NUMBER     NOT NULL,    -- 추천 커뮤니티게시글 번호
+    RECOMMEND_DATE  DATE       NOT NULL     -- 게시물 추천일자
+);
+
+
+-- 문의게시판-카테고리
+CREATE TABLE INQUIRY_CATEGORY
+(
+    CATEGORY_INO      NUMBER          PRIMARY KEY, 
+    CATEGORY_INAME    VARCHAR2(30)    NOT NULL
+);
+
+
+-- 문의게시판 테이블(수정: 상품번호 컬럼 추가)
+-- reply 항목 삭제 및 indent추가 group/step/indent not null 해제
+CREATE TABLE INQUIRY_BOARD
+(
+    INQUIRY_NO           NUMBER          PRIMARY KEY,       -- 문의글번호
+    INQUIRY_USERID       VARCHAR2(20)     NOT NULL,         -- 회원아이디
+    INQUIRY_TITLE        VARCHAR2(20)     NOT NULL,         -- 문의글 제목
+    INQUIRY_CONT         VARCHAR2(1000)   ,                -- 문의글 내용
+    INQUIRY_IMAGE       VARCHAR2(1000)   ,                 -- 문의글 이미지   
+    INQUIRY_HIT          NUMBER           DEFAULT 0 NULL,   -- 문의글 조회수
+    INQUIRY_DATE         DATE             NOT NULL,         -- 문의글 작성일자
+    INQUIRY_UPDATE       DATE             ,                 -- 문의글 수정일자
+    PRODUCT_NO             NUMBER   ,                   -- 상품번호
+    ORDER_NO             NUMBER           ,                 -- 주문번호
+    INQUIRY_STATUS       NUMBER           CHECK(INQUIRY_STATUS in(0,1)), -- 답변상태(답변대기:0, 답변완료:1)
+    INQUIRY_GROUP        NUMBER                          -- 그룹
+    INQUIRY_STEP         NUMBER                          -- 순서
+    INQUIRY_INDENT     NUMBER
+    CATEGORY_INOFK       NUMBER           NOT NULL         -- 카테고리번호
+);
+
+-- 중고거래 카테고리
+CREATE TABLE USED_CATEGORY
+(
+    CATEGORY_UNO      NUMBER          PRIMARY KEY, 
+    CATEGORY_UNAME    VARCHAR2(30)    NOT NULL 
+);
+
+-- 중고게시판 테이블(수정: 중고제품 이름컬럼 추가)
+CREATE TABLE USED_BOARD
+(
+    USED_NO           NUMBER           PRIMARY KEY, -- 중고거래글번호
+    USED_USERID       VARCHAR2(20)     NOT NULL, -- 회원아이디
+    USED_TITLE        VARCHAR2(20)     NOT NULL, -- 중고거래글 제목
+    USED_CONT         VARCHAR2(200)    ,         -- 중고거래글 내용
+    USED_IMAGE        VARCHAR2(1000)   ,         -- 중고거래사진
+    USED_HIT          NUMBER           DEFAULT 0 NOT NULL, -- 중고거래글 조회수
+    USED_DATE         DATE             NOT NULL, -- 중고거래글 작성일자
+    USED_UPDATE       DATE             ,         -- 중고거래글 수정일자
+    CATEGORY_UNOFK    NUMBER           NOT NULL, -- 카테고리번호
+    USED_SIZE         VARCHAR2(20)     ,         -- 사이즈
+    USED_PRICE        NUMBER(10)       ,         -- 중고거래가
+    USED_STATUS       NUMBER           CHECK(USED_STATUS in(0,1)),         -- 중고제품상태(중고:0, 새상품 1)
+    USED_SALTATUS     NUMBER           CHECK(USED_SALTATUS in(0,1)),       -- 판매상태(판매중: 0, 판매완료: 1)
+    USED_PRODUCT      VARCHAR2(100)              -- 중고제품 이름   
+);
+
+
+-- 중고게시판 댓글테이블(수정: 카테고리 번호 컬럼 삭제)
+CREATE TABLE USED_COMMENT
+(
+    COMMENT_NO        NUMBER           PRIMARY KEY, -- 댓글번호
+    COMMENT_WRITER    VARCHAR2(20)     NOT NULL,    -- 댓글 작성자
+    COMMENT_CONT      VARCHAR2(100)    NOT NULL,    -- 댓글내용
+    COMMENT_DATE      DATE             NOT NULL,    -- 작성일자
+    COMMENT_UPDATE    DATE             ,            -- 수정일자
+    COMMENT_GROUP     NUMBER           NOT NULL,    -- 댓글그룹
+    COMMENT_STEP      NUMBER           NOT NULL,    -- 댓글에 순서
+    COMMENT_INDENT    NUMBER           NOT NULL,    -- 대댓글
+    USED_NOFK         NUMBER           NOT NULL    -- 게시판 글번호
+);
+
+-- 제품 카테고리 테이블
+CREATE TABLE PRODUCT_CATEGORY
+(
+    CATEGORY_PNO     NUMBER          PRIMARY KEY, -- 카테고리번호
+    CATEGORY_NAME    VARCHAR2(30)    NOT NULL     -- 카테고리 이름
+);
+
+-- 제품 테이블
+CREATE TABLE PRODUCT
+(
+    PRODUCT_NO         NUMBER           PRIMARY KEY, -- 제품번호
+    PRODUCT_NAME       VARCHAR2(100)     NOT NULL,    -- 제품명
+    CELEB_NO           NUMBER           ,            -- 가수번호
+    PRODUCT_IMAGE     VARCHAR2(1000)    NOT NULL,    -- 제품이미지
+    PRODUCT_QTY       NUMBER           NOT NULL,     -- 제품수량
+    PRODUCT_PRICE     NUMBER           NOT NULL,     -- 제품가격
+    PRODUCT_SIZE       VARCHAR2(20)     ,            -- 제품 사이즈
+    PRODUCT_COLOR      VARCHAR2(30)     ,            -- 제품 컬러
+    PRODUCT_DETAIL    VARCHAR2(200)     NOT NULL,    -- 제품설명
+    PRODUCT_MILEAGE    NUMBER           NOT NULL,    -- 마일리지
+    PRODUCT_INPUT      DATE             NOT NULL,    -- 입고일
+    CATEGORY_PNOFK     NUMBER           NOT NULL     -- 카테고리번호
+);
+
+-- 마일리지 마스터 테이블
+CREATE TABLE MILEAGE_MASTER
+(
+    MILEAGE_MNO            NUMBER    PRIMARY KEY,        -- 마일리지 마스터 번호    
+    MILEAGE_MEMNO          NUMBER    NOT NULL,           -- 유저넘버 (FK)
+    MILEAGE_REMAINING      NUMBER    NOT NULL ,          -- 잔여마일리지
+    MILEAGE_EARN           NUMBER    DEFAULT 0 NOT NULL, -- 획득마일리지
+    MILEAGE_DEDUCTION      NUMBER    DEFAULT 0 NOT NULL, -- 차감마일리지
+    MILEAGE_ACCUMULATED    NUMBER    NOT NULL,           -- 누적마일리지
+    MILEAGE_TYPE           VARCHAR2(30),                 -- 마일리지 획득 및 차감경로
+    MILEAGE_DATE           DATE      NOT NULL            -- 기준일자
+);
+
+-- 이벤트테이블 (수정: 그룹명, 셀럽명 컬럼 추가,NOTICE_CONT 크기변경)
+CREATE TABLE NOTICE
+(
+    NOTICE_NO        NUMBER           PRIMARY KEY,         -- 공지사항번호
+    ADMIN_ID         VARCHAR2(30)     NOT NULL,            -- 관리자 아이디
+    GROUP_NAME      VARCHAR2(20) ,                           -- 그룹명
+    CELEB_NAME         VARCHAR2(20),                         -- 셀럽명
+    NOTICE_TYPE  VARCHAR2(30) NOT NULL,                  --type(celeb, concert)
+    NOTICE_TITLE     VARCHAR2(200)     NOT NULL,            -- 제목
+    NOTICE_IMAGE     VARCHAR2(1000)    NOT NULL,            -- 이미지
+    NOTICE_CONT      VARCHAR2(4000)    NOT NULL,            -- 내용
+    NOTICE_HIT       NUMBER           DEFAULT 0 NOT NULL,  -- 조회수
+    NOTICE_DATE      DATE             NOT NULL,            -- 작성일
+    NOTICE_UPDATE    DATE,                                  -- 수정일
+    NOTICE_ENDDATE  DATE    DEFAULT NULL   --종료일
+);
+
+
+--메인 이미지 테이블
+CREATE TABLE IMAGES
+(
+    IMAGE_NO NUMBER PRIMARY KEY,         --이미지 번호
+    IMAGE_PATH VARCHAR2(1000) NOT NULL,  --이미지 경로
+    IMAGE_LINK VARCHAR2(200) NOT NULL,   --이미지 클릭시 이동할 경로
+    IMAGE_PRIORITY NUMBER,               --이미지가 보여질 순서
+    IMAGE_VISIBLE NUMBER DEFAULT 0       -- 메인에 보여질 이미지 0과 1로 구분
+);
+
+            

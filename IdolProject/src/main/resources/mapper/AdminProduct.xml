@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    
+    <mapper namespace="AProductDAO">
+    
+    	<!-- 상품 리스트 가져오기 -->
+    	<select id="getProductsList" resultType="ProductDTO">
+    		select * from product order by product_input desc
+    	</select>
+    	
+    	<!-- productCategory insert -->
+    	<insert id="insertProductCategory" parameterType="pCategoryDTO">
+    		insert into product_category values(#{category_pno}, #{category_name})
+    	</insert>
+    	
+    	<!-- productCategory 리스트 가져오기  -->
+    	<select id="getPCategoryList" resultType="pCategoryDTO">
+    		select * from product_category order by category_pno
+    	</select>
+    	
+    	<!-- 상품 등록 시키기  -->
+    	<insert id="insertProduct" parameterType="ProductDTO">
+    		<selectKey resultType="int" keyProperty="product_no" order="BEFORE">
+    			select max(product_no) from product
+    		</selectKey>
+    	  insert into product values(#{product_no} + 1, #{product_name}, #{celeb_no, jdbcType=INTEGER}, 
+    	  	#{product_image}, #{product_qty}, #{product_price}, #{product_size}, 
+    	  		#{product_color}, #{product_detail}, #{product_mileage}, #{product_input}, #{category_pnofk} )
+    	</insert>
+    	
+    	<!-- 상품 상세 정보 가져오기  by product_no-->
+    	<select id="getProductCont" parameterType="int" resultType="ProductDTO">
+    		select * from product where product_no = #{no}
+    	</select>
+    	
+    	<!-- 상품 삭제 하기 -->
+    	<delete id="deleteProduct" parameterType="int">
+    		delete from product where product_no = #{no}
+    	</delete>
+    	
+    	<!-- 상품 삭제 후 넘버링 재정의  -->
+    	<update id="updateProNoSequen" parameterType="int">
+    		<![CDATA[
+    		 update product set product_no = product_no - 1 where product_no > #{no}
+    		]]>
+    	</update>
+    	
+    	<!-- 상품 업데이트하기  -->
+    	<update id="updateProduct" parameterType="ProductDTO">
+    		update product set product_name = #{product_name}, celeb_no = #{celeb_no}, product_image = #{product_image}, product_qty = #{product_qty}, 
+    			product_price = #{product_price}, product_size = #{product_size}, product_color = #{product_color}, 
+    				product_detail = #{product_detail}, product_mileage = #{product_mileage}, product_input = #{product_input}, category_pnofk = #{category_pnofk} where product_no = #{product_no}
+    	</update>
+    	
+    	<!-- 주문 리스트 불러오기 -->
+    	<select id="getOrderList" resultType="OrderDTO">
+    		select * from order_product order by order_date desc, order_group desc
+    	</select>
+    
+    	<!-- 주문 상세 정보 불러오기  by order_no -->
+    	<select id="getOrderCont" parameterType="int" resultType="OrderDTO">
+    		select * from order_product where order_no = #{no}
+    	</select>
+    
+    	<!-- 주문 상세 정보 불러오기 by order_goup -->
+    	<select id="getOrderContList" parameterType="int" resultType="OrderDTO">
+    		select * from order_product where order_group = #{no} 
+    	</select>
+    	
+    	<!-- 맴버별 구매내역 불러오기 -->
+    	<select id="getMemberPurchase" parameterType="String" resultType="OrderDTO">
+    		select * from order_product where order_userid = #{name} order by order_date desc
+    	</select>
+    	
+    	<!-- 기간별 판매 내역 불러오기 -->
+    	<select id="DateRageSales" parameterType="dRangeDTO" resultType="OrderDTO">
+    		select * from order_product where order_date between #{firstDate} and #{lastDate} order by order_date desc, order_group desc 
+    	</select>
+    	
+    	
+    </mapper>

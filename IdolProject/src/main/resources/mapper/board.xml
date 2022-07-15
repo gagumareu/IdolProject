@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="BoardDAO">
+  
+  <!-- 전체 게시물 출력 -->
+  <select id="allBoardList" resultType="BoardDTO">
+  	<![CDATA[select *from community_board order by community_no desc]]>
+  </select>
+  
+  <insert id="boardWrite" parameterType="BoardDTO">
+  <selectKey resultType="int" keyProperty="community_no" order="BEFORE">
+  	<![CDATA[select nvl(max(community_no),0) from community_board]]>
+  </selectKey>
+  
+  <![CDATA[insert into community_board values(#{community_no} + 1, #{community_userid}, #{community_title},
+		   #{community_cont}, default, sysdate,
+		   '', default, #{category_cnofk}, #{community_image})]]>
+  </insert>
+  
+  <!-- 게시물 추천수가 10개 이상인 게시물 출력 -->
+  <select id="BestList" resultType="BoardDTO">
+  	<![CDATA[select *from community_board where COMMUNITY_RECOMMEND >= 5 order by community_date desc, community_recommend desc]]>
+  </select>
+  
+  <!-- 일반주제 게시물 리스트 출력 -->
+  <select id="TopicList" resultType="BoardDTO" parameterType="int">
+  	<![CDATA[select * from community_board where CATEGORY_CNOFK = #{cno} order by COMMUNITY_NO desc]]>
+  </select>
+  
+  
+  <!-- 제목, 내용 검색 게시물 리스트 출력 -->
+  <select id="searchList" parameterType="String" resultType="BoardDTO">
+  <![CDATA[select *from community_board 
+  where COMMUNITY_TITLE like '%'|| #{keyword} || '%' or COMMUNITY_CONT like '%'|| #{keyword} || '%' order by COMMUNITY_DATE desc]]>
+  </select>
+  
+  <!-- 게시물의 마지막 번호를 가져오는 sql문 -->
+  <select id="maxNo" resultType="int">
+  	<![CDATA[select nvl(max(COMMUNITY_NO),0)from COMMUNITY_BOARD]]>
+  </select>
+  
+  <!-- 게시물 번호를 받아 상세정보를 가져오는 sql문 -->
+  <select id="boardDetail" parameterType="int" resultType="BoardDTO">
+  	<![CDATA[select *from community_board where COMMUNITY_NO = #{bno}]]>
+  </select>
+  
+  <!-- 게시물 조회수 없데이트 -->
+  <update id="hitUp" parameterType="int">
+  	<![CDATA[update community_board set community_hit = community_hit + 1 where community_no = #{bno}]]>
+  </update>
+  
+  <!-- 게시물 삭제 -->
+  <delete id="deleteBoard" parameterType="int">
+	<![CDATA[delete from community_board where community_no = #{bno}]]>  
+  </delete>
+  
+  <!-- 게시물 업데이트 -->
+  <update id="boardUpdate" parameterType="BoardDTO">
+  	<![CDATA[update community_board set community_title = #{community_title}, community_cont = #{community_cont},
+  			 community_update = sysdate, category_cnofk = #{category_cnofk}, community_image = #{community_image}
+  			 where community_no = #{community_no} ]]>
+  </update>
+  
+  <!-- 게시물 추천수 증가-->
+  <update id="recommendtAdd" parameterType="int">
+  	<![CDATA[update community_board set community_recommend = community_recommend + 1 where community_no = #{bno}]]>
+  </update>
+  
+  <!-- 게시물 추천수 감소 -->
+  <update id="recommendtMinus" parameterType="int">
+  	<![CDATA[update community_board set community_recommend = community_recommend - 1 where community_no = #{bno}]]>
+  </update>
+  
+  <!-- 게시물 작성갯수에 따른 유저랭킹 -->
+  <select id="rangkingList" resultType="BoardrankingDTO">
+	<![CDATA[select  MEMBER_NO, COMMUNITY_USERID as MEMBER_ID, count(COMMUNITY_USERID) as BOARDCOUNT  from community_board cb join member m on cb.community_userid = m.member_id 
+			group by COMMUNITY_USERID, MEMBER_NO order by count(COMMUNITY_USERID) desc]]>
+  </select>  
+  
+  <!-- 게시물 리스트를 카테고리별로 최신날짜 및 추천수 순으로 가져온다. -->
+  <select id="boardDateRecommendList" parameterType="int" resultType="BoardDTO">
+  	<![CDATA[select * from community_board where CATEGORY_CNOFK = #{cno} order by community_date desc, COMMUNITY_RECOMMEND desc]]>
+  </select>
+  
+  </mapper>

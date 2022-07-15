@@ -1,0 +1,321 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*font-family: 'Noto Sans KR', sans-serif;*/
+
+#wrap{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#container{
+    width: 1200px;
+}
+
+#content{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/*상단 메뉴바*/
+#tab-bar{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin: 0px auto;
+    margin-top: 20px;
+    border-bottom: 2px solid lightgray;
+}
+
+#tab-bar .tab-menu{
+    position: relative;
+    margin-bottom: 8px;
+    color: lightgray;
+    top: 10px;
+    width: 160px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 550;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+#tab-bar .tab-menu a:hover{
+    color:black;
+}
+
+.border-Line{
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+}
+
+
+#boardWrite{
+	background-color:red;
+	font-size: 18px;
+    font-weight: 600;
+    border: 1px solid red;
+    color: white;
+    width: 100%
+}
+
+/*토픽 리스트 컨테이너*/
+#list-container{
+    width: 1200px;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+}
+
+/*게시글*/
+#list-container .article{
+    width: 600px;
+    height: 220px;
+    padding: 0 15px;
+    border-bottom: 1px solid lightgray;
+    opacity: 0;
+    transform: scale(0);
+    transition: .8s ease opacity, .8s ease transform;
+}
+
+#list-container .article:nth-child(odd){
+    border-right: 1px solid lightgray;
+}
+
+
+/*new-hot*/
+.article .new{
+    color: white;
+    background-color: black;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+.article .hot{
+    color: white;
+    background-color: red;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+
+/*title*/
+.article .title h3{
+    height: 52px;
+    max-height: 40px;
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3em;
+    
+}
+
+.article .title a:hover{
+    color:black;
+}
+
+/*content*/
+.article .content{
+    height: 43px;
+    max-height: 43px;
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 1.5em;
+}
+
+.article .content a{
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    color: black;
+    word-break: break-all;
+}
+
+
+
+/* .article .title{
+	padding-right: 120px;
+}
+
+.article .content{
+	padding-right: 120px;
+} */
+
+.article .imgBox{
+	position: absolute;
+	bottom: 90px;
+	left: 480px;
+	width: 120px;
+	height: 100px;
+}
+.article .imgBox img{
+	width: 100px;
+    height: 100px;
+	object-fit: fill;
+}
+
+.article .imgNoBox{
+	position: absolute;
+	bottom: 110px;
+	left: 510px;
+	z-index: 1;
+	color: lightgray;
+	font-size: 40px;
+}
+
+/*user*/
+.article .sub{
+    margin-top: 15px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.article .content-info{
+	position: absolute;
+	width: 550px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: gray;
+    bottom: 10px;
+}
+
+.article .content-info i{
+   opacity: 0.5;
+}
+
+/* 회원 피드 */
+.article .sub .user-feed{
+	display: inline-block;
+	position: relative;
+	bottom: 25px;
+	left: 145px;
+	display: none;
+}
+
+.user-feed ul{
+	padding: 0px;
+	width: 98px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: left;
+}
+
+.user-feed ul li{
+	height: 25px;
+    padding: 0 9px;
+    line-height: 27px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.user-feed ul li:hover{
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.user-feed ul li:nth-of-type(1){
+	border-bottom: 1px solid #ccc;
+}
+
+
+
+/*리스트 하단 더보기 버튼*/
+#article_more{
+	text-align: center;
+	margin-bottom: 10px;
+	border-bottom: 2px solid lightgray;
+	border-top: 2px solid lightgray;
+	padding: 10px 0px;
+	cursor: pointer;
+}
+
+
+
+
+/* backToTopBottom */
+#back-to-top {
+    position: fixed;
+    bottom: 15em;
+    right: 3em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom {
+    position: fixed;
+    bottom: 10em;
+    right: 3em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-bottom.visible {
+    opacity: 1;
+}
+
+#back-to-top:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-top.visible {
+    opacity: 1;
+}
+

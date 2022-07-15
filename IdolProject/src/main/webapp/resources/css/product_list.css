@@ -1,0 +1,468 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*font-family: 'Noto Sans KR', sans-serif;*/
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#wrap{
+    margin: 50px 15%;
+    background-color: #fff;
+}
+#container{
+	min-width: 1100px;
+	max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#contents{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+/* Product페이지 좌측 사이드바 */
+#product_side{
+    width: 200px;
+    margin-top: 15px;
+}
+.product_side_title{
+    font-size: 20px;
+    font-weight: bold;
+    color: #2d2f45;
+    border-bottom: 2px solid #2d2f45;
+    line-height: 24px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.sub_arrow{
+    margin-left: 50px;
+}
+
+.product_side_menu ul{
+    list-style: none;
+    padding-left: 0;
+}
+.product_side_menu a{
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #2d2f45;
+    line-height: 40px;
+}
+
+/*사이드바 세부카테고리*/
+.product_main_category i{
+    float: right;
+    margin-top: 12px;
+    margin-right: 10px;
+    color: gray;
+    cursor: pointer;
+}
+.product_detail_category{
+    display: none;
+    height: 32px;
+    line-height: 32px;
+    font-weight: 350;
+    margin-left: 20px;
+    opacity: 0;
+    transform: scale(0);
+    transition: .8s ease opacity, .8s ease transform;
+    
+}
+.product_main_category .fa-chevron-up{
+    display: none;
+    color: black;
+}
+
+
+/*list kind*/
+.list_function{
+    text-align: right;
+    width: 100%;
+    margin-right: 40px;
+}
+#list_kind{
+	font-size: 14px;
+	text-align: center;
+    width: 85px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    border: 0;
+    text-indent: 5px;
+    outline: none;
+}
+
+/*Product container*/
+#product_container{
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+	align-items: flex-end;
+}
+
+/*product_list*/
+#product_list{
+	max-width: 1020px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-right: 20px;
+}
+/*제품박스*/
+.prd-box{
+	width: 300px;
+    height: 480px;
+    margin: 20px 20px;
+    opacity: 0;
+    transform: scale(0);
+    transition: .8s ease opacity, .8s ease transform;
+}
+
+/*제품이미지박스 사이즈*/
+.prd-img-box{
+    width: 300px;
+    height: 350px;
+    text-align: center;
+    background-color: rgba(242, 242, 242);
+}
+
+/*제품이미지 사이즈*/
+.prd-img{
+  	width: 300px;
+    height: 300px;
+	object-fit: contain;
+	margin-top: 25px;
+}
+
+/*제품설명 디자인*/
+.prd-description{
+    margin-left: 5px;
+    margin-top: 10px;
+    text-align: left;
+}
+.prd-celeb{
+    font-style: normal;
+    display: block;
+    font-size: 14px;
+    height: 18px;
+    line-height: 18px;
+    color: #a7a9b5;
+    padding-bottom: 3px;
+    font-weight: 300;
+}
+.prd-name-cart{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+}
+.prd-name{
+    display: inline-block;
+    font-size: 14x;
+    color: #232744;
+    font-weight: 500;
+    margin: 10px 0;
+    width: 250px;
+    height: auto;
+}
+
+.prd-description a{
+	text-decoration: none;
+}
+
+.prd-cart{
+	margin: 10px 0;
+	padding-left: 10px;
+	width: 55px;
+}
+.prd-cart-img{
+	width: 30px;
+	height: 30px;
+	opacity: 0.5;
+	cursor: pointer; 
+}
+
+.prd-price{
+    font-size: 13x;
+    color: #232744;
+    font-weight: 500;
+}
+/*
+.origical-price{
+    color: lightgray;
+    text-decoration: line-through;
+}
+*/
+
+/*상품 준비 문구*/
+#product_list h2{
+	text-align: center;
+	color: #a7a9b5;
+	margin-top: 180px;
+	margin-left: 250px;
+}
+
+/*리스트 하단 더보기 버튼*/
+.main_product_more{
+    margin: 30px auto 0;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #2f2d43;
+    font-size: 16px;
+    border-top: 1.5px solid #d9d8de;
+}
+
+
+
+
+
+/*리스트 페이지 상단 슬라이더 CSS*/
+#slider{
+    position: relative;
+    width: 100%;
+}
+.slider-container {
+    width: 100%;
+	overflow: hidden;
+}
+
+.slider-innercontainer {
+    position: absolute;
+	width:100%;
+}
+
+.slide {
+	position: absolute;
+	width: 100%;
+	box-sizing:border-box;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+	overflow: hidden;
+}
+.slide img{
+    position: relative;
+    width: 100%;
+    height: 350px;
+}
+
+.slider-innercontainer.animated {
+	-webkit-transition: left .3s ease-in;
+	transition: left .3s ease-in;
+}
+
+blockquote {
+    color: #636363;
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 1.5em;
+}
+
+cite {
+    font-size: .75em;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Utility */
+.simple-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.slider-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-bullet{
+width: 11px;
+height: 11px;
+
+display: inline-block;
+border-radius: 100%;
+background: #a7a9b4;
+opacity: 1;
+border: 1px solid #a7a9b4;
+margin: 0 15px;
+}
+.slider-button{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.slider-button a{
+    color: black;
+}
+
+
+/*리스트 페이지 back-to-topBottom CSS*/
+#back-to-top {
+    position: fixed;
+    bottom: 10em;
+    right: 8em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom {
+    position: fixed;
+    bottom: 5em;
+    right: 8em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-bottom.visible {
+    opacity: 1;
+}
+
+#back-to-top:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-top.visible {
+    opacity: 1;
+}
+
+
+/*장바구니 actionScreen*/
+#basketaddContainer{
+	display: none;
+    font-size: 14px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    width: 410px;
+    margin: -175px 0 0 -205px;
+    border: 1px solid #3d435f;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#basketaddContainer h3{
+    font-size: 16px;
+    color: #fff;
+    font-weight: 400;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0px;
+}
+
+#basketaddContainer #bheader{
+    padding: 20px 35px 20px 40px;
+    color: #fff;
+    background: #3d435f;
+
+}
+
+#basketaddContainer #bcontent{
+    font-size: 14px;
+    padding: 45px 20px 0;
+    text-align: center;
+}
+
+#basketaddContainer #bmove_action{
+    margin: 50px auto;
+    height: 40px;
+    padding: 0;
+    width: 332px;
+}
+#basketaddContainer #bmove_action a{
+    text-decoration: none;
+}
+
+
+#basketaddContainer #bmove_action #bcancle{
+    width: 160px;
+    height: 50px;
+    background-color: #fff;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 600;
+    float: left;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50px;
+    border: 1px solid #b4b5c1;
+    cursor: pointer;
+}
+
+#basketaddContainer #bmove_action #bcancle:hover{
+    background-color: lightgray;
+}
+
+#basketaddContainer #bmove_action #bmove{
+    width: 160px;
+    height: 50px;
+    background-color: #3d435f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    float: right;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50px;
+    border: 1px solid #3d435f;
+    cursor: pointer;
+}
+
+#basketaddContainer #bmove_action #bmove:hover{
+    background-color: #232744;
+}
+
+#basketaddContainer #bclose{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 23px 20px;
+    cursor: pointer;
+}
+
+
+
+
+

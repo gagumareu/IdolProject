@@ -1,0 +1,334 @@
+@charset "UTF-8";
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*font-family: 'Noto Sans KR', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Bentham&family=Libre+Baskerville:ital@1&family=PT+Serif:ital@0;1&display=swap');
+/*Typography*/
+
+/*
+    font-family: 'Bentham', serif;
+    font-family: 'Libre Baskerville', serif;
+    font-family: 'PT Serif', serif;
+*/
+#wrap{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container{
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+}
+#search-container{
+    position: relative;
+    width: 100%;
+}
+
+#search-container .search_keyword{
+    position: relative;
+    margin: 10px auto;
+    display: block;
+    width: 736px;
+    height: 60px;
+    padding: 0 10px 0 62px;
+    border: 2px solid #222;
+    border-radius: 30px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+
+#search-container input[type='text']::-webkit-input-placeholder {
+    font-size:20px;
+    color: black;
+    text-transform:uppercase;
+    vertical-align:middle;
+ }
+
+
+#search-container #button-addon2{
+    position: absolute;
+    z-index: 1;
+    right: auto;
+    top: 18px;
+    left: 40px;
+    border: 0;
+    cursor: pointer;
+}
+
+#search-container #button-addon2:hover{
+    background-color: transparent;
+    color: lightgray;
+}
+
+#topic-container{
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+}
+
+#topic-container a{
+    text-decoration: none;
+}
+
+
+/*베스트 게시글*/
+#topic-container .topit-list-best{
+    width: 760px;
+    height: 350px;
+    margin: 0px auto;
+}
+
+/*베스트 게시글 타이틀*/
+.topit-list-best .topic-title{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid lightgray;
+    
+}
+
+/*베스트 게시글 타이제목*/
+.topit-list-best .topic-title h2{
+    height: 45px;
+    width: 650px;
+    padding-left: 10px;
+    border-bottom-width: 2px;
+    font-size: 24px;
+    line-height: 43px;
+
+}
+/*베스트 게시글 아이콘*/
+.topit-list-best .topic-title .fa-crown{
+    vertical-align: middle;
+    padding-top: 5px;
+}
+/*베스트 게시글 더보기*/
+.topit-list-best .topic-title .view-more{
+    position: absolute;
+    display: block;
+    padding: 14px 0;
+    top: -2px;
+    right: 0;
+    padding-right: 16px;
+}
+.topit-list-best .topic-title .view-more a{
+    color: #222;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+/*베스트 게시글 리스트*/
+.topit-list-best .topic-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+/*베스트 게시글 주제,제목,좋아요댓글*/
+.topit-list-best .topic-list .article{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+/*베스트 게시글 주제,제목*/
+.topit-list-best .topicAndtitle{
+    display: block;
+}
+
+/*베스트 게시글 주제*/
+.topit-list-best .topicAndtitle .topic a{
+    display: inline-block;
+    padding: 0 6px 0 7px;
+    color: #94969b;
+    font-weight: 300;
+    border: 1px solid lightgray;
+}
+
+.topit-list-best .topicAndtitle .article-title{
+    display: inline-block;
+    margin-top: 0;
+    line-height: 30px;
+    font-size: 18px;
+    color: black;
+    opacity: 0.8;
+}
+
+
+/*베스트 게시글 좋아요,댓글*/
+.topit-list-best .likeAndComment{
+    display: block;
+
+}
+/*베스트 게시글 좋아요,댓글 a링크*/
+.topit-list-best .likeAndComment a{
+    color: lightgray;
+    margin-right: 15px;
+    display: inline-block;
+    width: 50px;
+    text-align: right;
+}
+
+/*-------------------------일반 게시글---------------------------------------*/
+#topic-container .topit-list-topic{
+    width: 360px;
+    height: 320px;
+    margin: 40px 18px;
+    margin-bottom: 0px;
+}
+
+.topit-list-topic .topic-title{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid lightgray;
+    
+}
+.topit-list-topic .topic-title h2{
+    height: 30px;
+    width: 650px;
+    padding-left: 10px;
+    border-bottom-width: 2px;
+    font-size: 20px;
+    line-height: 43px;
+}
+
+
+/*일반 게시글 아이콘*/
+.topit-list-topic .topic-title .fa-crown{
+    vertical-align: middle;
+    padding-top: 5px;
+}
+/*일반 게시글 더보기*/
+.topit-list-topic .topic-title .view-more{
+    position: absolute;
+    display: block;
+    padding: 14px 0;
+    top: -2px;
+    right: 0;
+    padding-right: 16px;
+}
+.topit-list-topic .topic-title .view-more a{
+    color: #222;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
+/*일반 게시글 리스트*/
+.topit-list-topic .topic-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+/*일반 게시글 주제,제목,좋아요댓글*/
+.topit-list-topic .topic-list .article{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*일반 게시글 주제,제목*/
+.topit-list-topic .topicAndtitle{
+    display: block;
+}
+
+/*일반 게시글 주제*/
+.topit-list-topic .topicAndtitle .topic a{
+    font-size: 10px;
+    display: inline-block;
+    padding: 0 6px 0 7px;
+    color: #94969b;
+    font-weight: 300;
+    border: 1px solid lightgray;
+}
+
+.topit-list-topic .topicAndtitle .article-title{
+    display: inline-block;
+    margin-top: 0;
+    line-height: 30px;
+    font-size: 13px;
+    color: black;
+    opacity: 0.8;
+}
+
+
+/*일반 게시글 좋아요,조회수*/
+.topit-list-topic .likeAndComment{
+    display: inline-block;
+
+}
+/*일반 게시글 좋아요,조회수 a링크*/
+.topit-list-topic .likeAndComment a{
+    color: lightgray;
+    margin-right: 15px;
+    display: inline-block;
+    width: 50px;
+    text-align: right;
+}
+
+
+
+
+
+
+/*-------------------------------------------------*/
+
+#topMember-title img{
+	width: 100px;
+	object-fit: contain;
+	
+}
+
+#topMember-title span{
+	font-size: 25px;
+	font-weight: 400;
+}
+
+
+#right-container{
+    width: 300px;
+    margin: 0px auto;
+    margin-top: 10px;
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#member-ranking{
+	width: 100%;
+}
+
+#member-ranking .table .ranking-count{
+	text-align: center;
+}
+
+#member-ranking .table .ranking-boardcount{
+	
+	text-align: center;
+}
+

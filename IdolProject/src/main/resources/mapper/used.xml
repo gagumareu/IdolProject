@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usedDAO">
+
+    <select id="used_count" resultType="int">
+		select count(*) from used_board
+	</select>
+	
+	<select id="used_list" parameterType="pageDTO" resultType="usedDTO">
+		<![CDATA[
+			select * from
+				(select u.*, row_number() 
+					over(order by used_no desc) rnum from used_board u)
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<insert id="used_add" parameterType="usedDTO">
+		<selectKey resultType="int" keyProperty="used_no" order="BEFORE">
+			<![CDATA[select nvl(max(used_no),0) from used_board]]>
+		</selectKey>
+		insert into used_board values(#{used_no} + 1, #{used_userid}, 
+				#{used_title}, #{used_cont}, #{used_image},
+				default, sysdate, '', #{category_unofk}, #{used_size}, 
+				#{used_price}, #{used_status}, 0, #{used_product})
+	</insert>
+	
+	<update id="used_read" parameterType="int">
+		update used_board set used_hit = used_hit + 1
+			where used_no = #{no}
+	</update>
+	
+	<select id="used_content" parameterType="int" resultType="usedDTO">
+		select * from used_board where used_no = #{no}
+	</select>
+	
+	<select id="title" resultType="int">
+		select count(*) from used_board
+			where used_title like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="cont" resultType="int">
+		select count(*) from used_board
+			where used_cont like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="title_cont" resultType="int">
+		select count(*) from used_board
+			where used_title like '%' || #{keyword} || '%' or
+			    used_cont like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	<select id="writer" resultType="int">
+		select count(*) from used_board
+			where used_userid like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="title1" parameterType="pageDTO" resultType="usedDTO">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by used_no desc) rnum from used_board b
+					where used_title like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="cont1" parameterType="pageDTO" resultType="usedDTO">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by used_no desc) rnum from used_board b
+					where used_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="title_cont1" parameterType="pageDTO" resultType="usedDTO">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by used_no desc) rnum from used_board b
+					where used_title like '%' || #{keyword} || '%' or 
+					used_cont like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="writer1" parameterType="pageDTO" resultType="usedDTO">
+		<![CDATA[
+			select * from
+				(select b.*, row_number() 
+					over(order by used_no desc) rnum from used_board b
+					where used_userid like '%' || #{keyword} || '%')
+					where rnum >= #{startNo} and rnum <= #{endNo}
+	    ]]>
+	</select>
+	
+	<select id="usedCategory" resultType="com.idol.model.Used_CategoryDTO">
+		select * from used_category
+	</select>
+	
+</mapper>

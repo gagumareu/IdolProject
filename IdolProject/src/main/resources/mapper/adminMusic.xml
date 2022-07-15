@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    
+    <mapper namespace="AmusicDAO">
+    
+    	<!-- 음원 등록 -->
+    	<insert id="musicInsert" parameterType="musicDTO">
+    		<selectKey resultType="int" keyProperty="music_no" order="BEFORE">
+    			select max(music_no) from music
+    		</selectKey>
+    		insert into music values(#{music_no} + 1, #{group_name}, #{celeb_name}, #{music_aname}, #{music_name}, #{music_lyrics}, 
+    			#{music_composer}, #{music_lyricst}, #{music_coverimage}, 
+    				#{music_movie_link}, #{music_release_date} ) 
+    	</insert>
+    	
+    	<!-- 음원 리스트 order by 앨범 명-->
+    	<select id="musicList" resultType="musicDTO">
+    		select * from music order by music_release_date desc, music_aname, music_name
+    	</select>
+    	
+    	<!-- 음원 상세 내용 
+ 	   	<select id="musicCont" parameterType="int" resultType="musicDTO">
+    		select * from music where music_no = #{no}
+    	</select>
+    	 -->
+    	<!-- 음원 삭제 -->
+    	<delete id="deleteMusic" parameterType="int">
+    		delete from music where music_no = #{music_no} 
+    	</delete>
+    	
+    	<!-- 음원 정보 수정 -->
+    	<update id="musicUpdate" parameterType="musicDTO">
+    		update music set celeb_name = #{celeb_name}, group_name = #{group_name}, music_aname = #{music_aname}, music_name = #{music_name}, music_lyrics = #{music_lyrics},
+    			music_composer = #{music_composer}, music_lyricst = #{music_lyricst}, music_coverimage = #{music_coverimage},
+    				music_movie_link = #{music_movie_link}, music_release_date = #{music_release_date} where music_no = #{music_no} 
+    	</update>
+    	
+    	<!-- 셀럽 리스트 가져오기 --> 
+    	<select id="getCList" resultType="celebDTO">
+    		select * from celeb order by celeb_no
+    	</select>
+    	
+    	<!-- 그룹 리스트 가져오기 -->
+    	<select id="getGList" resultType="groupDTO">
+    		select * from celeb_group order by group_no
+    	</select>
+    	
+    	<!-- 삭제 후 넘버링 재정의 -->
+    	<update id="updateMusicSequen" parameterType="int">
+    		update music set music_no = music_no - 1 where music_no > #{no}
+    	</update>
+    	
+    	<!-- 음원 검색 (앨범X) -->
+    	<select id="searchMusic" parameterType="String" resultType="musicDTO">
+    		select * from music where lower(music_name) like '%' || #{keyword} || '%'
+    	</select>
+    	
+    	<!-- 앨범 리스트 -->
+    	<select id="getAlbumList" resultType="musicDTO">
+    		select * from music where music_no in (select min(music_no) from music group by music_aname) order by music_release_date desc 
+    	</select>
+    	
+    	<select id="mList" resultType="musicDTO">
+    		select * from music where music_aname = #{music_aname}
+    	</select>
+    	
+    	
+    	
+    	
+    </mapper>

@@ -1,0 +1,900 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*font-family: 'Noto Sans KR', sans-serif;*/
+
+#wrap{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#container{
+    width: 1200px;
+}
+
+#content{
+    width: 100%;
+}
+
+/* 주문페이지 제목 */
+.order-title{
+    margin: 60px auto ;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #2d3043;
+}
+
+/* 주문내역 페이지 제목 */
+.list-title{
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #2d2f43;
+    border-bottom: 2px solid #3d435f;
+}
+
+/* 주문내역 테이블 스타일 적용 */
+.order-table table tr th{
+    padding: 0;
+    border: 0;
+    background-color: #fff;
+    color: #98989f;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    font-weight: 350;
+}
+.order-table table tr th:nth-of-type(1){
+    width: 750px;
+}
+.order-table table tr th:nth-of-type(2){
+    width: 150px;
+}
+.order-table table tr th:nth-of-type(3){
+    width: 150px;
+}
+.order-table table tr th:nth-of-type(4){
+    width: 150px;
+}
+.order-table table tr td{
+    padding: 25px 10px;
+    border-bottom: 1px solid lightgray;
+    text-align: center;
+    font-size: 14px;
+    color: #2d2f43;
+    line-height: 24px;
+    font-weight: 300;
+}
+
+.order-table table tr:nth-of-type(1){
+    border-top: 1px solid lightgray;
+}
+
+.order-image{
+    width: 120px;
+}
+
+.order-image img{
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.order-prdInfo .order-prdGroup{
+    text-align: left;
+    font-style: normal;
+    display: block;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    color: #a7a9b5;
+    padding-bottom: 3px;
+    font-weight: 300;
+}
+
+.order-prdInfo .order-prdName{
+    text-align: left;
+    font-weight: 400;
+}
+
+.order-prdInfo .order-prdName a{
+    color: black;
+    text-decoration: none;
+}
+
+.order-amount{
+    color: #2d2f43;
+    font-weight: 500;
+}
+
+/*order 테이블 하단 마일리지 상품 합계,배송비, 총합계 등*/
+#mileage button{
+    cursor: pointer;
+}
+
+#mileage button:hover{
+   background-color: lightgray;
+}
+#order-tableRight td{
+    width: 100%;
+    font-weight: 400;
+}
+
+#order-tableRight #mileage-total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mileage{
+  text-align: left;
+}
+
+#mileage input{
+    width: 100px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid #d8d9df;
+    text-align: right;
+    color: #444;
+    font-size: 14px;
+    font-family: "smtown","Noto Sans KR",sans-serif;
+    vertical-align: top;
+    outline: none;
+    font-weight: 300;
+}
+/*input number 클릭시 화살표 제거*/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#mileage button {
+    background-color: #fff;
+    border: 1px solid #b4b5c1;
+    color: #2d2f43;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.plus_sign{
+    display: inline-block;
+    text-align: center;
+    line-height: 23px;
+    width: 21px;
+    height: 21px;
+    background-color: #f2f2f2;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    font-size: 14px;
+    color: #3d435f;
+    font-family: Dotum;
+    margin: 0 23px;
+}
+
+.plus_sign_line{
+    border-right: 1px solid #b1b4bf;
+    height: 21px;
+    margin: 0 23px;
+}
+
+#deliberyFee_sum{
+    display: inline-block;
+    color: #e5433e;
+    font-size: 24px;
+    font-weight: 500;
+    height: 30px;
+    vertical-align: middle;
+}
+
+/*테이블 하단 이전페이지 */
+.back-button{
+    padding: 20px 0;
+    display: block;
+}
+
+.gLeft{
+    float: left;
+    text-align: left;
+}
+.gLeft button{
+    background-color: #fff;
+    border: 1px solid #b4b5c1;
+    color: #2d2f43;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 550;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.gLeft button:hover{
+    background-color: lightgray;
+}
+
+.gRight{
+    float: right;
+    font-size: 14px;
+    color: #98989f;
+    font-weight: 300;
+    text-align: left;
+    padding-left: 25px;
+    line-height: 33px;
+}
+
+/*주문자 정보 및 mileage*/
+#orderAreaContainer{
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+/*주문자 정보*/
+#orderAreaLeft{
+    width: 690px;    
+}
+
+#orderAreaLeft .title{
+    margin-top: 70px;
+    border-bottom: 2px solid #3d435f;
+    padding-bottom: 15px;
+}
+
+#orderAreaLeft .title h3{
+    margin: 0;
+    display: inline-block;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#orderAreaLeft .required{
+    float: right;
+    margin: 0;
+    padding: 0;
+    color: #2d2f43;
+    font-size: 14px;
+    font-weight: 400;
+    height: 20px;
+    text-align: right;
+}
+
+#orderAreaLeft .required .ico_required{
+    color: #e5433e;
+    font-size: 30px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: left;
+    width: 15px;
+    line-height: 10px;
+    height: 11px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+/*------------주문자정보 테이블--------------*/
+.userInfo-table th .ico_required{
+    color: #e5433e;
+    font-size: 30px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: left;
+    width: 15px;
+    line-height: 10px;
+    height: 11px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.userInfo-table th{
+    width: 160px;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border: 0;
+    line-height: 55px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d2f43;
+    vertical-align: top;
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+}
+.userInfo-table td{
+    width: 527px;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border: 0;
+    line-height: 55px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #2d2f43;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.userInfo-table input{
+    height: 54px;
+    line-height: 54px;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid #d8d9df;
+    color: #444;
+    font-size: 14px;
+    font-family: "smtown","Noto Sans KR",sans-serif;
+    vertical-align: top;
+    font-weight: 300;
+}
+
+.userInfo-table .number_box input{
+    text-align: center;
+}
+
+.userInfo-table #oemail1,#oemail2{
+    text-align: center;
+}
+
+
+/* outline 테두리 없애기 */
+.userInfo-table input:focus{
+    outline: none;
+}
+
+.userInfo-table #oname{
+    width: 100%;
+}
+
+.userInfo-table #ozipcode{
+    width: 180px;
+}
+
+/*주소찾기 버튼*/
+.userInfo-table #addrButton{
+    background-color: #fff;
+    border: 1px solid #b4b5c1;
+    color: #2d2f43;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.userInfo-table #addrButton:hover{
+    background-color: lightgray;
+}
+
+/*이메일*/
+.userInfo-table #oemail3{
+    width: 161px;
+    height: 55px;
+    line-height: 55px;
+    padding: 0;
+    border: 0;
+    margin: 0 10px 0 0;
+    border-bottom: 1px solid #d8d9df;
+    color: #444;
+    font-size: 14px;
+    vertical-align: top;
+    outline: none;
+    position: relative;
+}
+
+/*------------배송정보 테이블--------------*/
+.delivery-table th .ico_required{
+    color: #e5433e;
+    font-size: 30px;
+    font-weight: 500;
+    font-style: normal;
+    text-align: left;
+    width: 15px;
+    line-height: 10px;
+    height: 11px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.delivery-table th{
+    width: 160px;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border: 0;
+    line-height: 55px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d2f43;
+    vertical-align: top;
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+}
+.delivery-table td{
+    width: 527px;
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    border: 0;
+    line-height: 55px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #2d2f43;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.delivery-table input{
+    height: 54px;
+    line-height: 54px;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid #d8d9df;
+    color: #444;
+    font-size: 14px;
+    font-family: "smtown","Noto Sans KR",sans-serif;
+    vertical-align: top;
+    font-weight: 300;
+}
+
+/* 배송지선택 radio */
+.delivery-table #sameaddr0{
+    width: 15px;
+}
+
+.delivery-table #sameaddr1{
+    width: 15px;
+}
+
+.delivery-table label{
+    margin-top: 1px;
+    display: inline-block;
+
+}
+
+/* 받는사람 iuput */
+.delivery-table #dname{
+    width: 100%;
+}
+
+/* 받는사람 우편번호 */
+.delivery-table  #ozipcode{
+    width: 180px;
+}
+
+/* outline 테두리 없애기 */
+.delivery-table input:focus{
+    outline: none;
+}
+
+/* 버튼 디자인 */
+.delivery-table button{
+    background-color: #fff;
+    border: 1px solid #b4b5c1;
+    color: #2d2f43;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 16px;
+    border-radius: 50px;
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+.delivery-table .number_box input{
+    text-align: center;
+}
+
+.delivery-table button:hover{
+    background-color: lightgray;
+}
+
+/* 배송메시지 텍스트 필드 */
+.delivery-table #omessage{
+    width: 525px;
+    padding: 10px 0;
+    margin: 20px 0;
+    border: 1px solid #d8d9df;
+    line-height: 1.5;
+    color: #353535;
+    vertical-align: middle;
+}
+
+
+
+
+/*---------------------orderAreaRight-----------------------*/
+#orderAreaRight{
+    width: 450px;
+}
+
+#orderAreaRight .title{
+    margin-top: 70px;
+    padding-bottom: 15px;
+}
+
+#orderAreaRight .title h3{
+    margin: 0;
+    display: inline-block;
+    color: #2d2f43;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#orderAreaRight .mileageBox{
+    border: 1px solid #d8d9df;
+    width: 385x;
+    padding: 30px;
+}
+
+#orderAreaRight .afterMileage{
+   padding-bottom: 20px;
+   border-bottom: 2px solid black;
+}
+
+
+/*----------------------------------결제수단---------------------------------------*/
+.payTitle{
+    padding-bottom: 15px;
+    padding-top: 50px;
+}
+
+.payArea{
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    border: 1px solid #d8d9df;
+    border-bottom: 0;
+    color: #919198;
+    line-height: 1.5;
+    background-color: #f2f2f2;
+    width: 100%;
+}
+
+.payArea .method{
+    margin: 30px auto;
+    border: 1px solid #d8d9df;
+    background-color: #fff;
+    width: 1100px;
+}
+
+.payArea .method span{
+    display: table-cell;
+    text-align: center;
+    width: 191px;
+    height: 82px;
+    border-right: 1px solid #d8d9df;
+    vertical-align: middle;  
+    cursor: pointer;
+}
+
+/*카드결제 항목*/
+.payArea .payingCardArea{
+    width: 1100px;
+    margin: 0 auto;
+}
+.payArea table{
+    width: 100%;
+}
+.payArea table th{
+    font-size: 12px;
+    width: 165px;
+    padding: 5px 0 5px 9px;
+    vertical-align: middle;
+    border: 1px solid #dfdfdf;
+    border-bottom-width: 0;
+    color: #353535;
+    text-align: left;
+    font-weight: normal;
+    background-color: #fbfafa;
+}
+
+.payArea table td{
+    padding: 5px 5px 5px 9px;
+    display: table-cell;
+    vertical-align: text-top;
+    font-size: 14px;
+    color: #2d2f43;
+    line-height: 24px;
+    font-weight: 300;
+    border-top: 1px solid #dfdfdf;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.payArea table td input[type="checkbox"]{
+    width:15px;height:15px;vertical-align:text-top;
+}
+
+.payArea input{
+    height: 18px;
+    line-height: 20px;
+    padding: 2px 4px;
+    border: 1px solid #d5d5d5;
+    color: #353535;
+    font-size: 12px;
+}
+
+.cardTable table td select{
+    width: 150px;
+    height: 24px;
+    border: 1px solid #d5d5d5;
+}
+
+.cardTable table td select{
+    width: 150px;
+    height: 24px;
+    border: 1px solid #d5d5d5;
+}
+
+.cardTable table td .BtnNormal{
+    display: inline-block;
+    margin: 0 0 2px 0;
+    line-height: 12px;
+    padding: 5px 7px 5px 7px;
+    border: 1px solid #b4b4b4;
+    border-radius: 2px;
+    font-size: 12px;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.cardAgree input[type="checkbox"]{
+    width:15px;height:14px;vertical-align:text-top;
+}
+
+.payingCardArea .cardAgree{
+    border: 1px solid #d7d5d5;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.cardAgree .all{
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    font-weight: 400;
+    background: #fbfafa;
+    color: #919198;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cardAgree .view{
+    text-decoration: none;
+    color: #919198;
+}
+
+.cardAgree .all .btnToggle{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #707070;
+    outline: 0;
+    background: none;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.payArea .payHelp{
+    padding: 10px 20px;
+    color: #919198;
+    line-height: 1.5;
+}
+
+
+/*에스크로(실시간 계좌 이체)*/
+.payArea .payingEscrow{
+    width: 1100px;
+    margin: 0 auto;
+}
+
+/*카카오페이(간편결제)*/
+.payArea .payingKakao{
+    width: 1100px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+/*페이코(간편결제)*/
+.payArea .payingPayco{
+    width: 1100px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.payArea .payingPayco a{
+    text-decoration: none;
+    color: #a7a9b5;
+}
+
+
+
+/*-------------------최종결제금액------------------------*/
+.payArea #totalArea{
+    width: 1100px;
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 5px;
+}
+#totalArea span{
+    display: block;
+}
+
+#totalArea span .BtotalAmount{
+    display: inline-block;
+}
+
+#totalArea .amountNumber{
+    font-size: 28px;
+    color: black;
+    font-weight: 500;
+}
+
+#totalArea .amountTag{
+    font-size: 14px;
+    padding-top: 4px;
+}
+
+#totalArea .sing{
+    position: relative;
+    margin: auto 30px;
+    height: 100%;
+    font-size: 40px;
+    color: #000;
+}
+
+#totalArea .sing span{
+    position: relative;
+}
+
+#totalArea .sing .minusSing{
+    bottom: 12px;
+}
+
+#totalArea .sing .resultSing{
+    bottom: 10px;
+}
+
+#totalArea .amountResult{
+    color: red;
+}
+
+
+
+/*-------------결제하기 버튼--------------------*/
+#payingBtnContainer{
+    margin: 20px auto;
+}
+#payingBtnContainer #deliberyInfo{
+    font-size: 14px;
+    color: red;
+    text-align: center;
+}
+
+#payingBtn button{
+    height: 55px;
+    width: 350px;
+    margin: 25px auto;
+    background-color: #3d435f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+    text-align: center;
+    line-height: 55px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+/* backToTopBottom */
+#back-to-top {
+    position: fixed;
+    bottom: 15em;
+    right: 3em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom {
+    position: fixed;
+    bottom: 10em;
+    right: 3em;
+    background-color: rgba(255, 255, 255, .9);
+    color: #313943;
+    border: none;
+    border-radius: 50px;
+    padding: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, .25);
+    transition: all .3s ease-in-out;
+    display: inline-block;
+    opacity: 0;
+    text-decoration: none;
+    font-size: .75em;
+}
+
+#back-to-bottom:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-bottom.visible {
+    opacity: 1;
+}
+
+#back-to-top:hover {
+        background-color: #fff;
+        padding: 1em 3em;
+    }
+
+#back-to-top.visible {
+    opacity: 1;
+}

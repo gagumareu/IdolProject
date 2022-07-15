@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="RankingDAO">
+
+<select id="accumulated" parameterType="HashMap" resultType="rankingDTO">
+	select * from (select 
+		m.member_no, 
+		m.member_id,
+		m.member_introduction, 
+		m.member_nickname, 
+		m.member_image, 
+		max(mm.mileage_accumulated) score, 
+		row_number() over(order by max(mm.mileage_accumulated) desc) rnum
+	from member m left join mileage_master mm 
+		on m.member_no = mm.mileage_memno
+		where mileage_accumulated is not null 
+		and mileage_type != '회원가입 적립'
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>
+		group by member_no, member_id, member_introduction, member_nickname, member_image 
+		order by score desc) where <![CDATA[ rnum >= 1  and rnum <= #{rnum}]]>
+</select>
+
+<select id="message" parameterType="HashMap" resultType="rankingDTO">
+	select * from (select
+		m.member_no, 
+		m.member_id,
+		m.member_introduction, 
+		m.member_nickname, 
+		m.member_image, 
+		count(mm.mileage_type) score,
+		row_number() over(order by count(mm.mileage_type) desc) rnum
+	from member m left join mileage_master mm 
+		on m.member_no=mm.mileage_memno 
+		where mm.mileage_type='게시글 등록 획득'
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>
+		group by member_no, member_id, member_introduction, member_nickname, member_image
+		order by score desc) where <![CDATA[ rnum >= 1  and rnum <= #{rnum}]]>
+</select>
+
+<select id="purchase" parameterType="HashMap" resultType="rankingDTO">
+	select * from (select
+		m.member_no, 
+		m.member_id,
+		m.member_introduction, 
+		m.member_nickname, 
+		m.member_image, 
+		count(mm.mileage_type) score,
+		row_number() over(order by count(mm.mileage_type) desc) rnum
+	from member m left join mileage_master mm 
+		on m.member_no=mm.mileage_memno 
+		where mm.mileage_type='제품구매 획득'
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>
+		group by member_no, member_id, member_introduction, member_nickname, member_image
+		order by score desc) where <![CDATA[ rnum >= 1  and rnum <= #{rnum}]]>
+
+</select>
+
+<select id="birth" parameterType="HashMap" resultType="memberDTO">
+	select * from (select 
+		m.*,
+		row_number() over(order by m.member_id desc) rnum
+		from member m
+		WHERE to_char(sysdate, 'mm/dd') = to_char(m.member_dateofbirth, 'mm/dd')
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
+</select>
+
+<select id="referrals" parameterType="HashMap" resultType="rankingDTO">
+	select * from (select
+		m.member_no, 
+		m.member_id,
+		m.member_introduction, 
+		m.member_nickname, 
+		m.member_image, 
+		max(cb.community_recommend) score,
+		row_number() over(order by max(cb.community_recommend) desc) rnum
+	from member m left join community_board cb 
+		on m.member_id=cb.community_userid 
+		where community_recommend is not null
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>
+		group by member_no, member_id, member_introduction, member_nickname, member_image
+		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
+</select>
+
+<select id="comment" parameterType="HashMap" resultType="rankingDTO">
+	select * from (select
+		m.member_no, 
+		m.member_id,
+		m.member_introduction, 
+		m.member_nickname, 
+		m.member_image, 
+		count(cc.comment_no) score,
+		row_number() over(order by count(cc.comment_no) desc) rnum
+	from member m left join community_comment cc
+		on m.member_id=cc.comment_writer
+		where cc.comment_no is not null
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>
+		group by member_no, member_id, member_introduction, member_nickname, member_image
+		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
+	
+</select>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.idol.model.GroupDAO">
+
+	<select id="groupInfo" resultType="com.idol.model.GroupDTO" parameterType="String">
+	<!-- celeb테이블 그룹명에 해당하는 정보를 찾는 sql문  -->
+		select * from celeb_group where group_name = #{celeb_group}
+	</select>
+
+	<select id="searchGroup" resultType="com.idol.model.GroupDTO" parameterType="String">
+	<!-- celeb테이블 그룹명에 해당하는 정보를 찾는 sql문  -->
+		select * from celeb_group where lower(group_name) like lower('%' || #{group} || '%') order by group_no asc
+	</select>
+	
+</mapper>    

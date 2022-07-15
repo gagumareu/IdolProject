@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="OrderDAO">
+  
+  <insert id="addOrder" parameterType="OrderDTO">
+  	<selectKey resultType="int" keyProperty="order_no" order="BEFORE">
+  		<![CDATA[select nvl(max(ORDER_NO),0) from ORDER_PRODUCT]]>
+  	</selectKey>
+  	
+		<![CDATA[insert into ORDER_PRODUCT values(#{order_no}+1, #{order_userid}, #{order_pimage},
+		 		#{order_pname}, #{order_qty}, #{order_total}, #{order_tcost},
+		 		#{order_mileage}, #{order_type},#{order_group}, sysdate, #{order_receivername}, #{order_receiveraddress},
+		 		 #{order_receiverphone}, #{order_pprice} )
+		 		]]>   	
+  </insert>
+  
+  <select id="orderAllList" parameterType="String" resultType="OrderDTO">
+     select * from order_product where order_userid = #{id} order by order_no desc
+  
+  </select>
+  
+  
+  	<!-- 회원이 주문한 날짜들 리스트 -->
+   <select id="orderDates" parameterType="String" resultType="String">
+  	select TO_CHAR(order_date,'YY/MM/DD') from order_product where order_userid=#{id} group by TO_CHAR(order_date,'YY/MM/DD')
+  			order by TO_CHAR(order_date,'YY/MM/DD') desc
+  </select>
+  	<!-- 회원이 주문한 날짜에 해당하는 내역리스트  -->
+   <select id="orderListDate" parameterType="map" resultType="OrderDTO">
+  	<!-- <![CDATA[ select * from order_product 
+  		where order_userid =#{id} and order_date >= TO_CHAR(TO_DATE(#{date},'YY/MM/DD')) and 
+  		order_date <TO_CHAR(TO_DATE(#{date}+1,'YY/MM/DD')) order by order_group desc, order_no  ]]> -->
+  	<![CDATA[ select * from order_product 
+  		where order_userid = #{id} and order_date >= to_date(#{date}, 'yy-mm-dd') and 
+  		order_date < to_date(#{date} ,'yy-mm-dd')+1 order by order_group, order_no  ]]> 
+  </select>
+  
+  
+  <!-- 원석 -->
+  <select id="newGroupno" resultType="int">
+  	<![CDATA[select nvl(max(order_group)+1,0+1) from order_product]]>
+  </select>
+  
+   <!-- 로그인중인 유저의 아이디를 인자로 받아 마지막 주문목록을 불러옴 -->
+  <select id="lastorder" parameterType="String" resultType="OrderDTO">
+  	<![CDATA[select *from order_product where order_group = (select max(order_group)from order_product) and order_userid = #{memid}]]>
+  
+  </select>
+  
+  <!-- 구매내역 정보  -->
+  <select id="orderCont" parameterType="int" resultType="OrderDTO">
+  	select * from order_product where order_no = #{ono}
+  </select>
+  
+  <!-- 구매그룹 정보 리스트 -->
+  <select id="orderGroup" parameterType="int" resultType="OrderDTO">
+  	select * from order_product where order_group = #{ogno}
+  </select>
+  
+  <!--  구매그룹내역 삭제하기 -->
+  <select id="deleteOgno" parameterType="int">
+	delete from order_product where order_group = #{ogno}  
+  </select>
+  
+  <!-- 날짜검색한 구매내역 날짜들 -->
+  <select id="orderListDateSearch" parameterType="HashMap" resultType="String">
+  	select TO_CHAR(order_date,'YY/MM/DD') from order_product where order_userid=#{order_userid} group by TO_CHAR(order_date,'YY/MM/DD')
+  			
+  	<if test="startDate == endDate"> <!-- 시작날짜와 끝날짜가 같은경우 -->
+				having TO_CHAR(order_date,'YY/MM/DD') = TO_DATE(#{startDate}, 'YY/MM/DD')
+			</if>
+			<if test="startDate != endDate"> <!-- 시작날짜와 끝날짜가 다른경우 -->
+				having TO_CHAR(order_date,'YY/MM/DD') between TO_DATE(#{startDate}, 'YY/MM/DD') and TO_DATE(#{endDate}, 'YY/MM/DD')
+			</if>
+			order by TO_CHAR(order_date,'YY/MM/DD') desc
+  
+  </select>
+  
+  <!-- 최근 3일간 구매한 건수 -->
+  <select id="3daysOrder" resultType="int" parameterType="String">
+  	 select count(*) from order_product where  order_userid= #{member_id} and 
+  	 	TO_CHAR(order_date,'YY/MM/DD') between TO_CHAR(SYSDATE-2 ,'yy/mm/dd') and TO_CHAR(SYSDATE ,'yy/mm/dd')
+  </select>
+  
+  </mapper>

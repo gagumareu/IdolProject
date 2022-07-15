@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    
+    <mapper namespace="AnoticeDAO">
+    	
+    	<!-- 공지 작성 -->
+    	<insert id="insertNotice" parameterType="noticeDTO">
+    		<selectKey resultType="int" keyProperty="notice_no" order="BEFORE">
+    			select max(notice_no) from notice
+    		</selectKey>
+    		insert into notice values(#{notice_no} + 1, #{admin_id}, #{group_name}, #{celeb_name}, #{notice_type}, #{notice_title}, 
+    			#{notice_image}, #{notice_cont}, default, sysdate, '', #{notice_enddate})
+    	</insert>
+    	
+    	<!-- 공지 리스트 정렬: 1)종료일 2)수정일 3)작성일 -->
+    	<select id="noticeLsit" resultType="noticeDTO">
+    		select * from notice order by notice_enddate desc, notice_update, notice_date desc
+    	</select>
+    	
+    	<!-- 공지 상세 정보 가져오기 by no -->
+    	<select id="noticeCont" parameterType="int" resultType="noticeDTO">
+    		select * from notice where notice_no = #{no}
+    	</select>
+    	
+    	<!-- 공지 삭제 하기 -->
+    	<delete id="deleteNotice" parameterType="int">
+    		delete from notice where notice_no = #{no}
+    	</delete>
+    	
+    	<!-- 공지 삭제 후 넘버링 재정의 -->
+    	<update id="updateNoticeSeque" parameterType="int">
+    		<![CDATA[
+    			update notice set notice_no = notice_no - 1 where notice_no > #{no}
+    		]]>
+    	</update>
+    	
+    	<!-- 공지 사항 없데이트 -->
+    	<update id="updateNotice" parameterType="noticeDTO">
+    		update notice set notice_type = #{notice_type}, group_name = #{group_name}, celeb_name = #{celeb_name}, notice_image = #{notice_image}, notice_cont = #{notice_cont}, 
+    			notice_update = sysdate, notice_enddate = #{notice_enddate} where notice_no = #{notice_no} 
+    	</update>
+    	
+    	<!-- 그룹에 관련된 공지 & 이벤트 가져오기 -->
+    	<select id="getGroupNotice" parameterType="String" resultType="noticeDTO">
+    		select * from notice where group_name = #{name}
+    	</select>
+    	
+    	<!-- 셀럽에 관련된 공지& 이벤트 가져오기 -->
+    	<select id="getCelebNotice" parameterType="String" resultType="noticeDTO">
+    		select * from notice where celeb_name = #{name}
+    	</select>
+    	
+    	
+    	
+    </mapper>

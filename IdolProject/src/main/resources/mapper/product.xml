@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductDAO">
+
+	 <select id="allList" resultType="ProductDTO">
+      <![CDATA[select *from product order by product_no desc]]>
+   </select>
+
+	<select id="mainProductList" resultType="ProductDTO">
+		<![CDATA[select *from(select p.*,
+		row_number() over(order by p.product_input desc) rnum
+		from product p order by product_input desc)
+		where rnum >= 1 and rnum <= 10]]>
+	</select>
+
+  <!-- // 큰카테고리의 신제품,이름,낮은가격,높은가격 기준으로 리스트를 불러옴 -->
+  <select id="PCNList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_input desc]]>
+  </select>
+  
+  <select id="PCNaList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_name asc]]>
+  </select>
+  
+  <select id="PCRList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_price asc]]>
+  </select>
+  
+  <select id="PCHList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_price desc]]>
+  </select>
+  
+  <!-- // 세부카테고리의 신제품,이름,낮은가격,높은가격 기준으로 리스트를 불러옴 -->
+   <select id="PcNList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_input desc]]>
+  </select>
+  
+  <select id="PcNaList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_name asc]]>
+  </select>
+  
+  <select id="PcRList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_price asc]]>
+  </select>
+  
+  <select id="PcHList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_price desc]]>
+  </select>
+  
+  <!-- // 제품정보 -->
+  <select id="Pdetail" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from PRODUCT where PRODUCT_NO = #{pno}]]>
+  </select>
+  
+  <!-- 문의게시글 상품검색 관련  -->
+  <!-- 제품 총 데이터 수 -->
+  <select id="totalRecord" resultType="int" parameterType="map">
+  	select count(*) from product
+			<if test="field == 'product_name' "> <!-- 제품명으로 찾은 경우 -->
+				where product_name like '%' || upper(#{word})|| '%'
+			</if>
+			<if test="field == 'celeb_name'"> <!-- 가수 명으로 찾은 경우 -->
+				where product_name like '%' || upper(#{word})|| '%' or product_detail like '%' || upper(#{word})|| '%'
+			</if>
+  	
+  </select>
+  
+  <select id="productListPage" parameterType="map" resultType="ProductDTO">
+  	
+					
+	<if test="field == 'product_name'"> <!-- 제품명으로 찾은 경우 -->
+		<![CDATA[ select * from 
+				(select row_number() over(order by product_no desc) rnum, p.* from product p
+				 where product_name like '%' || upper(#{word})|| '%' )
+					where rnum>= #{page.startNo} and rnum <= #{page.endNo} ]]>
+		</if>
+		
+		<if test="field == 'celeb_name'"> <!-- 가수 명으로 찾은 경우 -->
+		<![CDATA[ select * from 
+				(select row_number() over(order by product_no desc) rnum, p.* from product p
+				 where product_name like '%' || upper(#{word})|| '%' or product_detail like '%' || upper(#{word})|| '%' )
+					where rnum>= #{page.startNo} and rnum <= #{page.endNo} ]]>
+		</if>
+		
+  </select>
+  
+  <!-- 제품명으로 제품정보 찾기 -->
+  <select id="PdetailbyName" parameterType="String" resultType="ProductDTO">
+  	<![CDATA[select *from PRODUCT where PRODUCT_NAME = #{order_pname}]]>
+  </select>
+  
+  
+  
+  
+  
+  
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="inquiryDAO">
+	
+	<!-- 문의게시글 리스트  -->
+	<select id="inquiryList" resultType="inquiryDTO" parameterType="String">
+		select * from inquiry_board where inquiry_userid = #{member_id} order by inquiry_no desc
+	</select>
+	
+	<!-- 문의게시글 카테고리 불러오기 -->
+	<select id="inquiryCategory" resultType="com.idol.model.Inquiry_CategoryDTO">
+		select * from inquiry_category order by category_ino
+	</select>
+	
+	
+	<!-- 문의글 작성  -->
+	<insert id="insertInquiry" parameterType="inquiryDTO">
+		<selectKey resultType="int" keyProperty="inquiry_no"  order="BEFORE">
+			select case when max(inquiry_no) is null then 1 else max(inquiry_no)+1 end from inquiry_board 
+		</selectKey>
+		
+		insert into inquiry_board values(#{inquiry_no}, #{inquiry_userid}, #{inquiry_title}, #{inquiry_cont}, #{inquiry_image, jdbcType=VARCHAR},
+		 		default, sysdate, '', #{product_no, jdbcType=INTEGER}, #{order_no, jdbcType=INTEGER}, 0, #{inquiry_no}, 0, 0, #{category_inofk} )
+	</insert>
+	
+	<!-- 페이징 처리 문의 게시글 -->
+	<!-- 게시물 전체 수  -->
+	<select id="boardCount" resultType="int" parameterType="String">
+		select count(*) from inquiry_board where inquiry_userid = #{id}
+	</select>
+	
+	<!-- 페이징처리 문의게시글 리스트 -->
+	<select id="listwithPage" parameterType="map" resultType="inquiryDTO">
+		<![CDATA[ select * from 
+				(select row_number() over(order by inquiry_no desc) rnum, b.* from inquiry_board b
+					where inquiry_userid = #{inquiry_userid})
+					where rnum>= #{page.startNo} and rnum <= #{page.endNo} ]]>
+	</select>
+	
+	<!-- 날짜조회 -->
+	<select id="dateBoard" parameterType="map" resultType="int">
+		select count(*) from inquiry_board where inquiry_userid=#{inquiry_userid}
+			<if test="startDate == endDate"> <!-- 시작날짜와 끝날짜가 같은경우 -->
+				and inquiry_date >= #{startDate}
+			</if>
+			<if test="startDate != endDate"> <!-- 시작날짜와 끝날짜가 다른경우 -->
+				and inquiry_date between #{startDate} and (select to_char(current_date+1, 'YYYY-MM-DD') from dual)
+			</if>
+			order by inquiry_no desc
+	</select>
+	
+	<select id="listwithDate" parameterType="map" resultType="inquiryDTO">
+		
+		<if test="startDate == endDate">
+		<![CDATA[ select * from 
+				(select row_number() over(order by inquiry_no desc) rnum, b.* from inquiry_board b
+					where inquiry_userid = #{inquiry_userid} and inquiry_date >= #{startDate})
+					where rnum>= #{page.startNo} and rnum <= #{page.endNo} ]]>
+		</if>
+		
+		<if test="startDate != endDate">
+		
+			<![CDATA[ select * from 
+				(select row_number() over(order by inquiry_no desc) rnum, b.* from inquiry_board b
+					where inquiry_userid = #{inquiry_userid} and 
+					inquiry_date between #{startDate} and (select to_char(current_date+1, 'YYYY-MM-DD') from dual))
+					where rnum>= #{page.startNo} and rnum <= #{page.endNo} ]]>
+		</if>
+		
+	</select>
+	
+	
+	<!-- 답변 대기중인 게시글 수 -->
+	<select id="waitReply" resultType="int" parameterType="String">
+		select count(*) from inquiry_board where inquiry_userid=#{id} and inquiry_status = 0
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHit" parameterType="int">
+		update inquiry_board set inquiry_hit = inquiry_hit +1 where inquiry_no = #{no}
+	</update>
+	
+	<!-- 게시글 내용  -->
+	<select id="inquiryCont" parameterType="int" resultType="inquiryDTO">
+		select * from inquiry_board where inquiry_no = #{no}
+	</select>
+	
+	<!-- 게시글의 답변글 찾기 -->
+	<select id="replyCont" parameterType="int" resultType="inquiryDTO">
+		select * from inquiry_board where inquiry_group = #{no} and inquiry_indent = 1
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="inquiryDel" parameterType="int">
+		delete from inquiry_board where inquiry_no = #{no}
+	</delete>
+	
+	<!-- 삭제에 따른 게시글번호 조정 -->
+	<update id="adjustIno" parameterType="int">
+		update inquiry_board set inquiry_no = inquiry_no-1 where inquiry_no > #{no}
+	</update>
+	
+	
+	<!-- 문의게시글 수정 -->
+	<update id="inquiryUpdate" parameterType="inquiryDTO">
+		update inquiry_board set inquiry_title = #{inquiry_title}, inquiry_cont = #{inquiry_cont},
+					inquiry_image = #{inquiry_image}, inquiry_update = sysdate where inquiry_no = #{inquiry_no}
+	</update>
+</mapper>    
