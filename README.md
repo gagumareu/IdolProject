@@ -26,7 +26,7 @@ k-pop 아이돌 통합 커뮤니티 사이트
 ## Advanced Feature
 - 이미지 파일 다중 등록
 - 다중 파일 수정 시 다중 등록 및 기존 파일 삭제
-
+- 기간 범위 판매내역 리스트 조회
 
 ## 시연
 
@@ -49,6 +49,16 @@ k-pop 아이돌 통합 커뮤니티 사이트
 ### 음원 리스트
 ![음원리스트2](https://user-images.githubusercontent.com/98436199/179349392-9f77ca0e-8130-497a-95e5-765a7a61ec3c.png)
 
+
+### 세일즈 관리 모드
+- 기간별 판매 리스트 조회
+![기간검색2](https://user-images.githubusercontent.com/98436199/179349483-30d0e54b-d8e6-46f5-9463-166deb117706.png)
+- 판매리스트 조회 [
+![기간별구매내역](https://user-images.githubusercontent.com/98436199/179349489-88b43c97-ab34-4141-88f1-0928a607d622.png)
+- 주문 번호 리스트
+![주문번호_리스트](https://user-images.githubusercontent.com/98436199/179349491-63bf25e9-d981-4197-801d-d8e270c5b4cb.png)
+- 회원 구매내역 전체 
+![회원별_구매내역](https://user-images.githubusercontent.com/98436199/179349492-344870f7-f8be-41f6-812b-5b695f7de0b5.png)
 
 
 
