@@ -51,6 +51,7 @@
 			font-family: 'VT323', monospace;
 			font-size: 1.9em;
 			line-height: 1.3em;
+			margin-top: 10%;
 		}
 		
 		.celeb_insert_content {
