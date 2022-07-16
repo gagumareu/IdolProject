@@ -41,7 +41,7 @@ k-pop 아이돌 통합 커뮤니티 사이트
 ![가수리스트](https://user-images.githubusercontent.com/98436199/179349371-291cfdc9-60c7-4cde-9e5c-30995071acb1.png)
 
 ### 다중파일 등록
-![셀럽이미지다중등록2](https://user-images.githubusercontent.com/98436199/179349300-88e9c40b-ea7f-4651-9fca-955039e31fb7.png)
+![다중등록](https://user-images.githubusercontent.com/98436199/179350966-87b37269-9e36-4c0d-b89d-55dd8ec0d954.png)
 
 ### 앨범 리스트
 ![앨범리스트](https://user-images.githubusercontent.com/98436199/179349389-797ca81b-fb4e-4686-a97b-f50f59968583.png)
