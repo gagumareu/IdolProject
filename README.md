@@ -64,7 +64,7 @@ k-pop 아이돌 통합 커뮤니티 사이트
 ### 세일즈 관리 모드
 - 기간별 판매 리스트 조회
 ![기간검색2](https://user-images.githubusercontent.com/98436199/179349483-30d0e54b-d8e6-46f5-9463-166deb117706.png)
-- 판매리스트 조회 [
+- 판매리스트 조회 
 ![기간별구매내역](https://user-images.githubusercontent.com/98436199/179349489-88b43c97-ab34-4141-88f1-0928a607d622.png)
 - 주문 번호 리스트
 ![주문번호_리스트](https://user-images.githubusercontent.com/98436199/179349491-63bf25e9-d981-4197-801d-d8e270c5b4cb.png)
